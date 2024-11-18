@@ -1,0 +1,363 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f0f4f8;
+  font-size: 14px;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  min-height: 100vh; /* Đảm bảo trang có chiều cao đầy đủ */
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed; /* Sidebar cố định */
+  top: 0;
+  left: 0;
+  width: 230px; /* Chiều rộng sidebar */
+  height: 100%; /* Đảm bảo sidebar chiếm toàn bộ chiều cao */
+  background-color: #fff;
+  color: #000;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #000;
+  overflow-y: auto; /* Cho phép cuộn nếu có nhiều nội dung */
+  z-index: 100; /* Đảm bảo sidebar luôn ở trên cùng */
+}
+
+.sidebar-header h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar-nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar-nav ul li a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.sidebar-nav ul li a:hover {
+  background-color: #000;
+  color:#fff ;
+  padding-left: 30px;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 230px; /* Đẩy phần nội dung sang phải để tránh sidebar */
+  padding: 20px;
+  flex-grow: 1;
+  background-color: white;
+  height: 100vh;
+  overflow-y: auto; /* Cho phép cuộn khi nội dung dài */
+  z-index: 1; /* Đảm bảo nội dung không bị che khuất bởi sidebar */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info span {
+  font-size: 16px;
+  margin-right: 15px;
+  font-weight: 500;
+}
+
+.user-info img {
+  border-radius: 50%;
+  border: 2px solid #ecf0f1;
+}
+
+/* Stats Section */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.card .count {
+  font-size: 36px;
+  font-weight: 700;
+  color: #16a085;
+  margin-bottom: 10px;
+}
+
+.card .desc {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Variants */
+.card-primary {
+  background-color: #16a085;
+  color: white;
+}
+
+.card-primary .count {
+  color: #fff;
+}
+
+.card-secondary {
+  background-color: #f39c12;
+  color: white;
+}
+
+.card-secondary .count {
+  color: #fff;
+}
+
+.card-tertiary {
+  background-color: #3498db;
+  color: white;
+}
+
+.card-tertiary .count {
+  color: #fff;
+}
+
+/* Chart Section */
+.chart h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.chart-placeholder {
+  background-color: #ecf0f1;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-content {
+    padding: 20px;
+    margin-left: 0; /* Đảm bảo phần nội dung không bị chèn với sidebar */
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}
+
+/* Layout tổng thể của dashboard */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh; /* Đảm bảo trang có chiều cao đầy đủ */
+  background-color: #f4f4f4;
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group input[type="file"] {
+  padding: 3px;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+.h1-header{
+  text-align: center;
+  font-weight: bold;
+}
+
+/* General styles for the table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.product-table th, .product-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.product-table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.product-table tr:hover {
+  background-color: #ddd;
+}
+
+.product-table td {
+  font-size: 14px;
+  color: #333;
+}
+
+/* General styles for the table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f4f4f9; /* Màu nền sáng nhưng tối hơn một chút */
+  border-radius: 8px; /* Bo tròn các góc của bảng */
+  overflow: hidden;
+  margin-top: 20px; /* Giữ nguyên margin-top */
+}
+
+.product-table th, .product-table td {
+  padding: 12px 20px; /* Padding không thay đổi */
+  text-align: left;
+  border: 1px solid #ccc; /* Viền nhẹ với màu xám */
+}
+
+.product-table th {
+  background-color: #333; /* Nền màu tối cho tiêu đề */
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #e6e6e6; /* Màu xám nhạt cho các dòng chẵn */
+}
+
+.product-table tr:hover {
+  background-color: #d1d1d1; /* Đổi màu khi di chuột */
+  transform: scale(1.02); /* Tăng kích thước nhẹ khi hover */
+  transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+.product-table td {
+  color: #333;
+  font-size: 14px;
+}
+
+/* Chỉnh sửa hiệu ứng hover */
+.product-table .table-row:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng mờ */
+  transition: all 0.3s ease;
+}
+
+/* Header */
+.h1-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.logo-dashboard{
+  margin-left:30px
+}

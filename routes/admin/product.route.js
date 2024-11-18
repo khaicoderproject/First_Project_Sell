@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controllerAdmin = require("../../controllers/admin/product.controller");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer();
 
 router.get("/", controllerAdmin.index);
 router.get("/create", controllerAdmin.create);

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Create Product</title>
+    <link rel="stylesheet" href="/admin/css/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <%- include('../../partials/sidebar') %>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <%- include('../../partials/header') %>
+        <h1 class="h1-header">Tạo mới nhóm quyền</h1>
+        <form action="<%-prefixAdmin%>/role/create" method="POST">
+          <div class="form-group">
+            <label for="title">Tên nhóm quyền</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              required
+            />
+          </div>
+
+          <!-- Mô tả sản phẩm -->
+          <div class="form-group">
+            <label for="description">Mô tả</label>
+            <textarea
+              class="form-control"
+              id="description"
+              name="description"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <!-- Nút tạo sản phẩm -->
+          <button type="submit" class="btn btn-dark">Tạo nhóm quyền</button>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

@@ -56,7 +56,9 @@
                         class="fw-normal mb-3 pb-3"
                         style="letter-spacing: 1px"
                       >
-                        Sign into your account
+                        Sign into your account <% if (error) { %>
+                        <div class="alert alert-danger"><%= error %></div>
+                        <% } %>
                       </h5>
 
                       <div data-mdb-input-init class="form-outline mb-4">

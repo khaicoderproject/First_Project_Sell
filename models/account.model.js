@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
 const genToken = require("../helpers/admin/generateToken");
-const accountScheme = mongoose.Schema({
-  fullName: String,
-  email: String,
-  password: String,
-  token: {
-    type: String,
-    default: () => genToken.genToken(20),
+const accountScheme = mongoose.Schema(
+  {
+    fullName: String,
+    email: String,
+    password: String,
+    token: {
+      type: String,
+      default: () => genToken.genToken(20),
+    },
+    role_id: String,
+    status: String,
   },
-  role_id: String,
-  status: String,
-});
+  {
+    timestamps: true,
+  }
+);
 const account = mongoose.model("account", accountScheme, "accounts");
 module.exports = account;

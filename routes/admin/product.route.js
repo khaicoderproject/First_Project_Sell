@@ -14,4 +14,5 @@ router.post(
   controllerAdmin.updatePost
 );
 router.post("/delete/:id", controllerAdmin.delete);
+router.get("/detail/:id", controllerAdmin.detail);
 module.exports = router;

@@ -38,3 +38,10 @@ module.exports.delete = async (req, res) => {
   await productModel.updateOne({ _id: id }, { deleted: true });
   res.redirect("back");
 };
+
+module.exports.detail = async (req, res) => {
+  const id = req.params.id;
+  const detail = await productModel.findOne({ _id: id });
+  // console.log(detail);
+  res.render("admin/pages/product/detail", { detail: detail });
+};

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/admin/css/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <%- include('../../partials/sidebar') %>
+      <!-- Main Content -->
+      <main class="main-content">
+        <%- include('../../partials/header') %>
+        <h1 class="h1-header">Danh sách tài khoản</h1>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Họ và Tên</th>
+              <th>Email</th>
+              <th>Chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% user.forEach((item, index) => { %>
+            <tr class="table-row">
+              <td><%= index + 1 %></td>
+              <td><%= item.fullName %></td>
+              <td><%= item.email %></td>
+              <td>
+                <a
+                  href="product/detail/<%- item.id%>"
+                  class="btn btn-outline-primary"
+                  >Chi tiết</a
+                >
+                <a
+                  href="product/update/<%- item.id%>"
+                  class="btn btn-outline-info"
+                  >Sửa</a
+                >
+                <button
+                  class="btn btn-outline-dark"
+                  data-id="<%=item.id%>"
+                  data-delete-button
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </main>
+    </div>
+    <form
+      action=""
+      method="post"
+      data-path="<%-prefixAdmin%>/product/delete"
+      id="form-delete"
+    ></form>
+  </body>
+  <script src="/admin/js/product.js"></script>
+</html>

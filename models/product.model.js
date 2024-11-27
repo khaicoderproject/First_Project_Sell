@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   stock: Number,
   thumnail: String,
   status: String,
+  category_id: String,
   deleted: {
     type: Boolean,
     default: false,

@@ -1,13 +1,17 @@
 const productModel = require("../../models/product.model");
 const prefixAdminConfig = require("../../config/prefixAdmin.config");
 const prefixAdmin = prefixAdminConfig.prefixAdmin;
+const categoryModel = require("../../models/category.model");
 module.exports.index = async (req, res) => {
   const product = await productModel.find({ deleted: false, status: "active" });
   // console.log(product);
   res.render("admin/pages/product/index", { product: product });
 };
-module.exports.create = (req, res) => {
-  res.render("admin/pages/product/create");
+module.exports.create = async (req, res) => {
+  const category = await categoryModel.find({ deleted: false });
+  res.render("admin/pages/product/create", {
+    category: category,
+  });
 };
 module.exports.createPost = async (req, res) => {
   //   console.log(req.body);

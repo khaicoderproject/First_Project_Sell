@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/admin/css/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <%- include('../../partials/sidebar') %>
+      <!-- Main Content -->
+      <main class="main-content">
+        <%- include('../../partials/header') %>
+        <h1 class="h1-header">Danh Mục</h1>
+        <a href="category/create" class="btn btn-dark">Tạo Danh Mục</a>
+        <% if(category.length>0){ %>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên Danh Mục</th>
+              <th>Mô tả</th>
+              <th>Các chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% category.forEach((item, index) => { %>
+            <tr class="table-row">
+              <td><%= index + 1 %></td>
+              <td><%= item.title %></td>
+              <td><%= item.description %></td>
+              <!-- <td>
+                <a href="#" class="btn btn-secondary"><%= item.status %></a>
+              </td> -->
+              <td>
+                <a
+                  href="product/detail/<%- item.id%>"
+                  class="btn btn-outline-primary"
+                  >Chi tiết</a
+                >
+                <a
+                  href="product/update/<%- item.id%>"
+                  class="btn btn-outline-info"
+                  >Sửa</a
+                >
+                <button
+                  class="btn btn-outline-dark"
+                  data-id="<%=item.id%>"
+                  data-delete-button
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <h1 class="text-category">Hiện chưa có danh mục nào!</h1>
+        <%}%>
+      </main>
+    </div>
+  </body>
+  <script src="/admin/js/product.js"></script>
+</html>

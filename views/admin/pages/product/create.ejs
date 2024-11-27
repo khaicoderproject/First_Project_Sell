@@ -32,6 +32,23 @@
             />
           </div>
 
+          <!-- Danh mục  -->
+          <!-- <%- category %> -->
+          <div class="form-group">
+            <label for="category">Danh mục</label>
+            <select
+              class="form-control"
+              aria-label="Default select example"
+              name="category_id"
+              id="category"
+            >
+              <option disabled selected>Chọn danh mục cho sản phẩm</option>
+              <% category.forEach(item=> { %>
+              <option value="<%- item.id%>"><%- item.title%></option>
+              <%})%>
+            </select>
+          </div>
+
           <!-- Mô tả sản phẩm -->
           <div class="form-group">
             <label for="description">Mô tả</label>

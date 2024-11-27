@@ -1,0 +1,141 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.banner {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+}
+
+.product-list {
+  padding: 20px 0;
+}
+
+/* Product Card */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);  /* Nổi bật hơn khi di chuột */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);  /* Tạo bóng đổ mạnh khi hover */
+}
+
+/* Hiệu ứng zoom cho hình ảnh khi hover */
+.product-thumbnail {
+  height: 220px;  /* Giảm kích thước hình ảnh để sản phẩm gọn gàng hơn */
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-thumbnail {
+  transform: scale(1.1); /* Zoom vào hình ảnh khi hover */
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.product-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+.product-discount {
+  font-size: 1rem;
+  color: #888;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.product-stock {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.product-status {
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  color: #fff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.in-stock {
+  background-color: #2ecc71;
+}
+
+.out-of-stock {
+  background-color: #e74c3c;
+}
+
+/* Ensure responsive layout with 3-4 products per row */
+@media (min-width: 1200px) {  /* For large screens (4 products per row) */
+  .product-list .col-lg-3 {
+    flex: 0 0 24%;
+    max-width: 24%;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {  /* For medium screens (3 products per row) */
+  .product-list .col-md-4 {
+    flex: 0 0 32%;
+    max-width: 32%;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {  /* For smaller screens (3 products per row) */
+  .product-list .col-sm-6 {
+    flex: 0 0 48%;
+    max-width: 48%;
+  }
+}
+
+@media (max-width: 767px) {  /* For mobile screens (1 product per row) */
+  .product-list .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {  /* For extra small mobile screens (1 product per row) */
+  .product-list .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

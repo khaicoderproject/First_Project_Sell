@@ -30,33 +30,43 @@
     <div class="container mt-5">
       <div class="row">
         <% products.forEach(product => { %>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-          <div class="product-card card">
-            <img
-              src="<%= product.thumnail %>"
-              alt="<%= product.title %>"
-              class="product-thumbnail card-img-top"
-            />
-            <div class="card-body">
-              <h5 class="card-title product-title"><%= product.title %></h5>
-              <p class="card-text product-description">
-                <%= product.description %>
-              </p>
-              <div class="product-price">
-                $<%= (product.price * (1 - product.discountPercentage /
-                100)).toFixed(2) %>
-                <span class="product-discount text-muted"
-                  >$<%= product.price.toFixed(2) %></span
+        <a href="/product/detail/<%=product.slugProduct%>">
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="product-card card">
+              <img
+                src="./admin/uploads/<%= product.thumbnail %>"
+                alt="<%= product.title %>"
+                class="product-thumbnail card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title product-title"><%= product.title %></h5>
+                <% let selectedCategory = category.find(item => item.id ===
+                product.category_id); %>
+                <!-- Tìm danh mục khớp trước -->
+
+                <b>Danh mục:</b>
+                <% if (selectedCategory) { %>
+                <!-- Nếu tìm thấy danh mục -->
+                <a href="category/<%= selectedCategory.slug %>"
+                  ><%- selectedCategory.title %></a
                 >
-              </div>
-              <div class="product-stock mb-2">
-                <small
-                  >Còn: <%= product.stock %> / <%= product.quantity %></small
-                >
+                <% } else { %>
+                <!-- Nếu không tìm thấy danh mục -->
+                Không có <% } %>
+                <div class="product-price">
+                  $<%= (product.price * (1 - product.discountPercentage /
+                  100)).toFixed(2) %>
+                  <span class="product-discount text-muted"
+                    >$<%= product.price.toFixed(2) %></span
+                  >
+                </div>
+                <div class="product-stock mb-2">
+                  <small>Còn: <%= product.quantity %></small>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
         <% }); %>
       </div>
     </div>

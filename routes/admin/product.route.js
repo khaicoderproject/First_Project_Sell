@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const controllerAdmin = require("../../controllers/admin/product.controller");
 const multer = require("multer");
-const upload = multer();
+const uploadName = require("../../helpers/admin/upload");
+const upload = multer({ storage: uploadName() });
 
 router.get("/", controllerAdmin.index);
 router.get("/create", controllerAdmin.create);
-router.post("/create", upload.single("thumnail"), controllerAdmin.createPost);
+router.post("/create", upload.single("thumbnail"), controllerAdmin.createPost);
 router.get("/update/:id", controllerAdmin.update);
 router.post(
   "/update/:id",

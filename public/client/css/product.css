@@ -139,3 +139,41 @@ body {
     max-width: 100%;
   }
 }
+
+
+/* Category Hero Section */
+.category-hero {
+  background: #f8f9fa;
+  border-bottom: 2px solid #ddd;
+  padding: 20px 0;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.category-title .text-highlight {
+  color: #007bff;
+  text-transform: capitalize; /* Make 'Men' dynamic and styled */
+}
+
+.category-subtitle {
+  font-size: 1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.category-hero .btn {
+  font-size: 0.9rem;
+  padding: 8px 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.category-hero .btn:hover {
+  background-color: #0056b3;
+  color: #fff;
+  transform: translateY(-2px);
+}

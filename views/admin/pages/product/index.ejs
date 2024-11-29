@@ -38,7 +38,16 @@
               <td><%= item.price %></td>
               <td><%= item.discountPercentage %></td>
               <td><%= item.quantity %></td>
-              <td><%= item.thumnail || 'Chưa upload' %></td>
+              <td>
+                <% if (item.thumbnail) { %>
+                <img
+                  src="/admin/uploads/<%= item.thumbnail %>"
+                  alt="<%= item.title %>"
+                  class="product-thumbnail card-img-top"
+                  style="width: 100px; height: auto"
+                />
+                <% } else { %> Chưa có ảnh <% } %>
+              </td>
               <td>
                 <a href="#" class="btn btn-secondary"><%= item.status %></a>
               </td>

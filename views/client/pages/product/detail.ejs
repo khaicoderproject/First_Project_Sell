@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="/client/css/style.css" />
+    <link rel="stylesheet" href="/client/css/product-detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <main class="main-content">
+        <%- include('../../partials/header') %>
+        <div class="product-detail-container">
+          <!-- Bên trái: Hình ảnh sản phẩm -->
+          <div class="product-gallery">
+            <div class="main-image">
+              <img
+                src="/admin/uploads/<%= product.thumbnail %>"
+                alt="<%= product.title %>"
+              />
+            </div>
+            <div class="thumbnail-list">
+              <img
+                src="/admin/uploads/<%= product.thumbnail %>"
+                alt="Thumbnail"
+                class="thumbnail active"
+              />
+              <!-- Thêm các thumbnail khác nếu có -->
+            </div>
+          </div>
+
+          <!-- Bên phải: Thông tin sản phẩm -->
+          <div class="product-info">
+            <h1 class="product-title"><%= product.title %></h1>
+            <p class="product-price">
+              <span class="price"><%= product.price %> VND</span>
+            </p>
+            <button class="btn-cart">Thêm vào giỏ hàng</button>
+          </div>
+        </div>
+
+        <!-- Miêu tả sản phẩm -->
+        <div class="product-description">
+          <h2>Thông tin chi tiết</h2>
+          <p><%= product.description %></p>
+        </div>
+      </main>
+    </div>
+    <%- include('../../partials/footer.ejs') %>
+  </body>
+</html>

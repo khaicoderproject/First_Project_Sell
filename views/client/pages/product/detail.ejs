@@ -12,9 +12,10 @@
     />
   </head>
   <body>
+    <%- include('../../partials/header') %>
     <div class="dashboard-container">
       <main class="main-content">
-        <%- include('../../partials/header') %>
+        
         <div class="product-detail-container">
           <!-- Bên trái: Hình ảnh sản phẩm -->
           <div class="product-gallery">
@@ -38,9 +39,14 @@
           <div class="product-info">
             <h1 class="product-title"><%= product.title %></h1>
             <p class="product-price">
-              <span class="price"><%= product.price %> VND</span>
+              <span class="price">Price: <%= product.price %> $</span>
+              <p>Còn: <%= product.quantity %> sản phẩm.</p>
             </p>
-            <button class="btn-cart">Thêm vào giỏ hàng</button>
+            <form action="/cart/order/<%= product.id %>" method="POST">
+              <input type="text" class="d-none" name="value" value="1">
+              <button class="btn-cart" type="submit">Thêm vào giỏ hàng</button>
+            </form>
+            
           </div>
         </div>
 

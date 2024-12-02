@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/client/css/style.css" />
+    <link rel="stylesheet" href="/client/css/product.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- Include header.ejs -->
+    <%- include('../../partials/header.ejs') %>
+
+    <div class="container my-5">
+      <h2 class="text-center">Thanh Toán</h2>
+      <form action="/process-payment" method="POST">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="fullName">Họ và tên</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                name="fullName"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Số điện thoại</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                name="phone"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="address">Địa chỉ</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="paymentMethod">Phương thức thanh toán</label>
+              <select
+                class="form-control"
+                id="paymentMethod"
+                name="paymentMethod"
+                required
+              >
+                <option value="credit-card">Thẻ tín dụng</option>
+                <option value="paypal">PayPal</option>
+                <option value="cash-on-delivery">
+                  Thanh toán khi nhận hàng
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="creditCardNumber">Số thẻ tín dụng</label>
+              <input
+                type="text"
+                class="form-control"
+                id="creditCardNumber"
+                name="creditCardNumber"
+              />
+            </div>
+            <div class="form-group">
+              <label for="expiryDate">Ngày hết hạn</label>
+              <input
+                type="text"
+                class="form-control"
+                id="expiryDate"
+                name="expiryDate"
+                placeholder="MM/YY"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="text" class="form-control" id="cvv" name="cvv" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4>Tổng cộng: <span id="totalAmount">500.000 VND</span></h4>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Xác nhận thanh toán
+        </button>
+      </form>
+    </div>
+
+    <!-- Include footer.ejs -->
+    <%- include('../../partials/footer.ejs') %>
+
+    <!-- Scripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

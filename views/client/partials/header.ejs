@@ -20,52 +20,62 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <!-- <%- category %> -->
+
   <!-- Navbar Menu -->
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mx-auto">
+  <div
+    class="collapse navbar-collapse justify-content-center"
+    id="navbarSupportedContent"
+  >
+    <ul class="navbar-nav">
       <!-- New & Featured -->
       <li>
         <b><a class="nav-link" href="/">Trang chủ</a></b>
       </li>
-      <% category.forEach(item=> { %>
+      <% category.forEach(item => { %>
       <li class="nav-item">
         <a class="nav-link" href="/category/<%=item.slug%>"><%=item.title%></a>
       </li>
-      <%})%>
+      <% }) %>
       <li>
         <a class="nav-link" href="/post">Bài viết</a>
       </li>
     </ul>
+  </div>
 
-    <!-- Navbar Icons (Search, Cart, User) -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Search Icon -->
-      <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="tooltip" title="Search">
-          <i class="fas fa-search"></i>
-        </a>
-      </li>
+  <!-- Navbar Icons -->
+  <div class="navbar-icons d-flex align-items-center">
+    <!-- Search Form -->
+    <form class="form-inline mx-2" action="/search" method="GET">
+      <input
+        class="form-control"
+        type="text"
+        name="q"
+        placeholder="Tìm kiếm..."
+        aria-label="Search"
+      />
+      <button class="btn btn-light ml-2" type="submit">
+        <i class="fas fa-search text-dark"></i>
+      </button>
+    </form>
 
-      <!-- Cart Icon -->
-      <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="tooltip" title="Cart">
-          <i class="fas fa-shopping-cart"></i>
-        </a>
-      </li>
+    <!-- Cart Icon -->
+    <a class="nav-link mx-2" href="/cart" data-toggle="tooltip" title="Cart">
+      <i class="fas fa-shopping-cart text-dark"></i>
+      <span class="badge badge-pill badge-primary">
+        <%= (typeof cartQuantity !== 'undefined' && cartQuantity.quantityTotal)
+        || 0 %>
+      </span>
+    </a>
 
-      <!-- User Icon -->
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          href="/user/login"
-          data-toggle="tooltip"
-          title="User"
-        >
-          <i class="fas fa-user"></i>
-        </a>
-      </li>
-    </ul>
+    <!-- User Icon -->
+    <a
+      class="nav-link mx-2"
+      href="/user/login"
+      data-toggle="tooltip"
+      title="User"
+    >
+      <i class="fas fa-user text-dark"></i>
+    </a>
   </div>
 </nav>
 

@@ -3,6 +3,7 @@ const productModel = require("../../models/product.model");
 const cartId = async (req, res, next) => {
   try {
     const cartValid = await cartModel.findOne({ _id: req.cookies.cartId });
+    // console.log(cartValid);
     if (!cartValid || (!cartValid && cartId.length !== 24)) {
       const cart = new cartModel();
       await cart.save();

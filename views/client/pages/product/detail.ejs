@@ -39,10 +39,10 @@
           <div class="product-info">
             <h1 class="product-title"><%= product.title %></h1>
             <p class="product-price">
-              <span class="price">Price: <%= product.price %> $</span>
+              <span class="price">Price: <%= product.price %> VND</span>
               <p>Còn: <%= product.quantity %> sản phẩm.</p>
             </p>
-            <form action="/cart/order/<%= product.id %>" method="POST">
+            <form action="/cart/order/<%= product._id %>" method="POST">
               <input type="text" class="d-none" name="value" value="1">
               <button class="btn-cart" type="submit">Thêm vào giỏ hàng</button>
             </form>
@@ -53,7 +53,7 @@
         <!-- Miêu tả sản phẩm -->
         <div class="product-description">
           <h2>Thông tin chi tiết</h2>
-          <p><%= product.description %></p>
+          <p><%- product.description %></p>
         </div>
       </main>
     </div>

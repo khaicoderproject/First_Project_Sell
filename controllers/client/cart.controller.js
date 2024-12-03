@@ -1,5 +1,6 @@
 const cartModel = require("../../models/cart.model");
 const productModel = require("../../models/product.model");
+const formatCurrency = require("../../helpers/admin/formatCurrency");
 module.exports.index = async (req, res) => {
   try {
     const cartId = req.cookies.cartId;
@@ -12,13 +13,15 @@ module.exports.index = async (req, res) => {
           const productId = item.product_id;
           const productInfo = await productModel
             .findOne({ _id: productId })
-            .select("title price quantity");
+            .select("title price slugProduct");
           item.productInfo = productInfo;
-          item.priceTotal = item.productInfo.price * item.quantity;
+          item.priceTotal = formatCurrency(
+            item.productInfo.price * item.quantity
+          );
+          item.priceTotalNumber = item.productInfo.price * item.quantity;
         }
-        cartProduct.totalPrice = cartProduct.reduce(
-          (sum, index) => sum + index.priceTotal,
-          0
+        cartProduct.totalPrice = formatCurrency(
+          cartProduct.reduce((sum, index) => sum + index.priceTotalNumber, 0)
         );
       }
     }

@@ -54,10 +54,10 @@
                 <!-- Nếu không tìm thấy danh mục -->
                 Không có <% } %>
                 <div class="product-price">
-                  $<%= (product.price * (1 - product.discountPercentage /
-                  100)).toFixed(2) %>
+                  <%= (product.price * (1 - product.discountPercentage /
+                  100)).toFixed(2) %> VND
                   <span class="product-discount text-muted"
-                    >$<%= product.price.toFixed(2) %></span
+                    ><%= product.price.toFixed(2) %> VND</span
                   >
                 </div>
                 <div class="product-stock mb-2">

@@ -127,8 +127,14 @@
         <tbody>
           <tr>
             <td><%=index+1%></td>
-            <td><%=item.productInfo.title%></td>
-            <td><%=item.productInfo.price%>$</td>
+            <td>
+              <a
+                href="/product/detail/<%=item.productInfo.slugProduct%>"
+                class="text-dark"
+                ><%=item.productInfo.title%></a
+              >
+            </td>
+            <td><%=item.productInfo.price%> VND</td>
             <td>
               <!-- <input
                 type="number"
@@ -138,7 +144,7 @@
               /> -->
               <%=item.quantity%>
             </td>
-            <td><%=item.priceTotal%>$</td>
+            <td><%=item.priceTotal%> VND</td>
             <td>
               <button class="btn btn-danger btn-sm">Xóa</button>
             </td>
@@ -154,7 +160,7 @@
         <div class="col-md-6 footer-button">
           <div class="total-amount">
             Tổng Tiền:
-            <span id="totalAmount"><%= cartProduct.totalPrice%>$</span>
+            <span id="totalAmount"><%= cartProduct.totalPrice%> VND</span>
           </div>
           <a href="/order/checkout" class="btn btn-primary btn-lg"
             >Thanh Toán</a

@@ -16,6 +16,10 @@ app.use(bodyParser.urlencoded({ extended: false })); //hỗ trợ req body
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 app.locals.prefixAdmin = configPrefixAdmin.prefixAdmin;
 route(app);
 routeAdmin(app);

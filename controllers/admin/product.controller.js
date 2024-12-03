@@ -16,7 +16,9 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   // console.log(req.body);
   // console.log(req.file);
-  req.body.thumbnail = req.file.filename;
+  if (req.body.thumbnail) {
+    req.body.thumbnail = req.file.filename;
+  }
   const product = new productModel(req.body);
   await product.save();
   res.redirect(`${prefixAdmin}/product`);

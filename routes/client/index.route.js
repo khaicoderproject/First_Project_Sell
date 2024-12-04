@@ -6,9 +6,10 @@ const categoryMiddleware = require("../../middleware/client/category.middleware"
 const cartRoute = require("./cart.route");
 const cartMiddleware = require("../../middleware/client/cart.middleware");
 const orderRoute = require("./order.route");
-module.exports = (app) => {
-  app.use(categoryMiddleware);
-  app.use(cartMiddleware);
+module.exports = async (app) => {
+  // app.use(cartMiddleware);
+  // app.use(["/", "/cart", "/product"], cartMiddleware);
+  app.use(cartMiddleware, categoryMiddleware);
   app.use("/", dashboardRoute);
   app.use("/user", authRoute);
   app.use("/product", productRoute);

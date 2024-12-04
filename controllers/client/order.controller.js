@@ -15,7 +15,7 @@ module.exports.checkout = async (req, res) => {
           const productId = item.product_id;
           const productInfo = await productModel
             .findOne({ _id: productId })
-            .select("title price thumbnail");
+            .select("title price thumbnail slugProduct");
           item.productInfo = productInfo;
           item.priceTotal = formatCurrency(
             item.productInfo.price * item.quantity

@@ -34,7 +34,8 @@
             <tr class="table-row">
               <td><%= index + 1 %></td>
               <td><%= item.title %></td>
-              <td><%- item.description.slice(0, 100) %></td>
+              <!-- slice(0, 100) -->
+              <td><%- item.description %></td>
               <td><%= item.price %></td>
               <td><%= item.discountPercentage %></td>
               <td><%= item.quantity %></td>

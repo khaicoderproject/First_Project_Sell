@@ -1,5 +1,6 @@
 const userModel = require("../../models/user.model");
 const md5 = require("md5");
+const cartModel = require("../../models/cart.model");
 module.exports.login = (req, res) => {
   res.render("client/pages/auth/login", {
     error: null,
@@ -17,6 +18,15 @@ module.exports.loginPost = async (req, res) => {
     return res.render("client/pages/auth/login", {
       error: "Mật khẩu không chính xác, vui lòng nhập lại!",
     });
+  }
+  const cart = await cartModel.findOne({ user_id: existEmail.id });
+  if (cart) {
+    res.cookie("cartId", cart.id);
+  } else {
+    await cartModel.updateOne(
+      { _id: req.cookies.cartId },
+      { user_id: existEmail._id }
+    );
   }
   res.cookie("tokenUser", existEmail.token);
   res.redirect("/");
@@ -44,5 +54,11 @@ module.exports.registerPost = async (req, res) => {
   const user = new userModel(req.body);
   user.save();
   res.cookie("tokenUser", user.token);
+  res.redirect("/");
+};
+
+module.exports.logout = (req, res) => {
+  res.clearCookie("tokenUser");
+  res.clearCookie("cartId");
   res.redirect("/");
 };

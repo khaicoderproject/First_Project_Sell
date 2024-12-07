@@ -38,8 +38,14 @@ module.exports.checkToken = async (req, res, next) => {
   try {
     // Tìm token trong database
     const accountToken = await accountModel.findOne({ token: token });
-    if (!accountToken) {
+    // console.log(token);
+    // console.log(accountToken);
+    if (!accountToken || accountModel === null) {
       // Token không hợp lệ
+      if (req.originalUrl === `${prefixAdmin.prefixAdmin}/auth/login`) {
+        // Nếu đã ở trang login, không chuyển hướng nữa
+        return next();
+      }
       return res.redirect(`${prefixAdmin.prefixAdmin}/auth/login`);
     }
 

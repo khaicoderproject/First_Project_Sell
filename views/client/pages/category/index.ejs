@@ -84,7 +84,10 @@
               <a class="dropdown-item" href="?sort=price-desc"
                 >Price: High to Low</a
               >
-              <a class="dropdown-item" href="?sort=newest">Newest</a>
+              <a class="dropdown-item" href="?sort=title-asc">Name: A-Z</a>
+              <a class="dropdown-item" href="?sort=title-desc">Name: Z-A</a>
+              <a class="dropdown-item" href="?sort=position-desc">Newest</a>
+              <a class="dropdown-item" href="?sort=position-asc">Oldest</a>
             </div>
           </div>
         </div>
@@ -109,10 +112,10 @@
               <div class="card-body">
                 <h5 class="card-title product-title"><%= product.title %></h5>
                 <div class="product-price">
-                  <%= (product.price * (1 - product.discountPercentage / 100))
-                  %> VND
+                  <%= formatCurrency((product.price * (1 -
+                  product.discountPercentage / 100))) %> VND
                   <span class="product-discount text-muted">
-                    <%= product.price %> VND
+                    <%= formatCurrency(product.price) %> VND
                   </span>
                 </div>
                 <div class="product-stock mb-2">

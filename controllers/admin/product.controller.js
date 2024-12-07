@@ -19,6 +19,14 @@ module.exports.createPost = async (req, res) => {
   if (req.file) {
     req.body.thumbnail = req.file.filename;
   }
+  const productCurrent = await productModel.find().countDocuments();
+  if (!req.body.position) {
+    req.body.position = productCurrent + 1;
+  } else {
+    if (req.body.position <= productCurrent + 1) {
+      req.body.position = productCurrent + 1;
+    }
+  }
   const product = new productModel(req.body);
   await product.save();
   res.redirect(`${prefixAdmin}/product`);

@@ -13,6 +13,7 @@ database.connect();
 app.use(cookieParser());
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({ extended: false })); //hỗ trợ req body
+// app.use(bodyParser.urlencoded({ extended: true })); //hỗ trợ req body
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

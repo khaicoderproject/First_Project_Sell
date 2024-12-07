@@ -54,11 +54,11 @@
                 <!-- Nếu không tìm thấy danh mục -->
                 Không có <% } %>
                 <div class="product-price">
-                  <%= (product.price * (1 - product.discountPercentage / 100))
-                  %> VND
-                  <span class="product-discount text-muted"
-                    ><%= product.price %> VND</span
-                  >
+                  <%= formatCurrency((product.price * (1 -
+                  product.discountPercentage / 100))) %> VND
+                  <span class="product-discount text-muted">
+                    <%= formatCurrency(product.price) %> VND
+                  </span>
                 </div>
                 <div class="product-stock mb-2">
                   <small>Còn: <%= product.quantity %></small>

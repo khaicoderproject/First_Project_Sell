@@ -10,6 +10,8 @@ const productSchema = new mongoose.Schema({
   stock: Number,
   thumbnail: String,
   status: String,
+  formatPrice: String,
+  position: Number,
   slugProduct: { type: String, slug: "title", unique: true },
   category_id: String,
   deleted: {

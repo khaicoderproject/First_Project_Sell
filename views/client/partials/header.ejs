@@ -61,21 +61,58 @@
     <!-- Cart Icon -->
     <a class="nav-link mx-2" href="/cart" data-toggle="tooltip" title="Cart">
       <i class="fas fa-shopping-cart text-dark"></i>
-      <span class="badge badge-pill badge-primary">
+      <span class="badge badge-pill badge-info">
         <%= (typeof cartQuantity !== 'undefined' && cartQuantity.quantityTotal)
         || 0 %>
       </span>
     </a>
 
-    <!-- User Icon -->
+    <!-- Notification Bell Icon -->
     <a
       class="nav-link mx-2"
-      href="/user/login"
+      href="/notifications"
+      data-toggle="tooltip"
+      title="Notifications"
+    >
+      <i class="fas fa-bell text-dark"></i>
+      <span class="badge badge-pill badge-info">5</span>
+      <!-- Example notification count -->
+    </a>
+
+    <!-- User Icon and Options -->
+    <% if (user) { %>
+    <!-- Check if user is logged in -->
+    <div class="dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        id="userDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-user text-dark"></i>
+        <b class="text-dark">Hello, <%=user.fullName%></b>
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="userDropdown"
+      >
+        <a class="dropdown-item" href="/user/profile">Profile</a>
+        <a class="dropdown-item" href="/user/setting-profile">System</a>
+        <a class="dropdown-item" href="/auth/logout">Logout</a>
+      </div>
+    </div>
+    <% } else { %>
+    <a
+      class="nav-link mx-2"
+      href="/auth/login"
       data-toggle="tooltip"
       title="User"
     >
       <i class="fas fa-user text-dark"></i>
     </a>
+    <% } %>
   </div>
 </nav>
 

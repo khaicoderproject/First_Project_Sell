@@ -1,8 +1,10 @@
 const productModel = require("../../models/product.model");
+const formatCurrency = require("../../helpers/admin/formatCurrency");
 module.exports.index = async (req, res) => {
   const products = await productModel.find({ deleted: false });
   res.render("client/pages/dashboard/index", {
     products: products,
+    formatCurrency: formatCurrency,
   });
 };
 module.exports.search = async (req, res) => {
@@ -24,7 +26,10 @@ module.exports.search = async (req, res) => {
       title: { $regex: new RegExp(search, "i") }, // 'i' là cờ không phân biệt chữ hoa, chữ thường
     });
 
-    res.render("client/pages/dashboard/index", { products: products });
+    res.render("client/pages/dashboard/index", {
+      products: products,
+      formatCurrency: formatCurrency,
+    });
   } catch (error) {
     // Xử lý lỗi
     console.error(error);

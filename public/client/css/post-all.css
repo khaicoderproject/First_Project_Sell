@@ -1,0 +1,163 @@
+/* Tổng thể */
+body {
+    background-color: #f0f6ff;
+    color: #28384d;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Bố cục chính */
+.container {
+    margin: 40px auto;
+    max-width: 1100px; /* Tăng chiều rộng tối đa */
+    padding: 0 15px;
+}
+
+/* Thẻ card */
+.card {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+.card-header {
+    padding: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #f8f9fa;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-footer {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e6e6e6;
+}
+
+/* Badge */
+.badge {
+    font-size: 14px;
+    line-height: 1;
+    padding: .5rem .7rem;
+    font-weight: normal;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.badge-primary {
+    color: #447de8;
+    background-color: #e6edff;
+}
+
+/* Hình đại diện */
+.rounded-circle {
+    width: 50px;
+    height: 50px;
+}
+
+/* Khoảng cách và căn chỉnh */
+.text-blue {
+    color: #447de8;
+    font-weight: bold;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28384d;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.dropdown-menu {
+    font-size: 14px;
+}
+
+/* Căn chỉnh nút */
+.btn-theme-primary {
+    background-color: #447de8;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-theme-primary:hover {
+    background-color: #355bb3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+        max-width: 100%;
+    }
+
+    .card-header, .card-body, .card-footer {
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+
+    .rounded-circle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-theme-primary {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .badge {
+        font-size: 12px;
+        padding: .4rem .6rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-text {
+        font-size: 13px;
+    }
+    
+    .rounded-circle {
+        width: 35px;
+        height: 35px;
+    }
+}

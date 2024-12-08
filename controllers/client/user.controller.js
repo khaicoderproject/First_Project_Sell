@@ -1,8 +1,19 @@
+const user = require("../../models/user.model");
 const userModel = require("../../models/user.model");
 module.exports.profile = async (req, res) => {
+  const userId = req.params.id;
+  const user = await userModel.findOne({ userIdentifier: userId });
+  if (!user) {
+    res.status(500).json("User id not found!");
+  }
   res.render("client/pages/user/profile");
 };
 module.exports.settingProfile = async (req, res) => {
+  const userId = req.params.id;
+  const user = await userModel.findOne({ userIdentifier: userId });
+  if (!user) {
+    res.status(500).json("User id not found!");
+  }
   res.render("client/pages/user/setting");
 };
 module.exports.settingProfilePost = async (req, res) => {

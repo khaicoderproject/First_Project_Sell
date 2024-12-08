@@ -1,6 +1,7 @@
 const userModel = require("../../models/user.model");
 const md5 = require("md5");
 const cartModel = require("../../models/cart.model");
+const generateId = require("../../helpers/client/generateId");
 module.exports.login = (req, res) => {
   res.render("client/pages/auth/login", {
     error: null,
@@ -51,6 +52,7 @@ module.exports.registerPost = async (req, res) => {
     });
   }
   req.body.password = md5(req.body.password);
+  req.body.userIdentifier = generateId.user();
   const user = new userModel(req.body);
   user.save();
   res.cookie("tokenUser", user.token);

@@ -8,6 +8,8 @@ const cartMiddleware = require("../../middleware/client/cart.middleware");
 const orderRoute = require("./order.route");
 const authMiddleware = require("../../middleware/client/auth.middleware");
 const userRoute = require("./user.route");
+const postRoute = require("./post.route");
+const newsRoute = require("./news.route");
 module.exports = async (app) => {
   // app.use(cartMiddleware);
   // app.use(["/", "/cart", "/product"], cartMiddleware);
@@ -19,4 +21,6 @@ module.exports = async (app) => {
   app.use("/cart", authMiddleware, cartRoute);
   app.use("/order", authMiddleware, orderRoute);
   app.use("/user", authMiddleware, userRoute);
+  app.use("/post", authMiddleware, postRoute);
+  app.use("/news", authMiddleware, newsRoute);
 };

@@ -10,6 +10,7 @@ const userScheme = mongoose.Schema(
       default: () => genToken.genToken(20),
     },
     address: String,
+    userIdentifier: Number,
     status: String,
   },
   {

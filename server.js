@@ -6,10 +6,23 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const route = require("./routes/client/index.route");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const routeAdmin = require("./routes/admin/index.route");
 const database = require("./config/database.config");
 const configPrefixAdmin = require("./config/prefixAdmin.config");
+const flash = require("express-flash");
 database.connect();
+app.use(cookieParser("notification"));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["your-secret-key1", "your-secret-key2"], // Thêm các khóa ký cookie ở đây
+    cookie: {
+      maxAge: 60000, // Cookie sẽ tồn tại trong 60 giây
+    },
+  })
+);
+app.use(flash());
 app.use(cookieParser());
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({ extended: false })); //hỗ trợ req body

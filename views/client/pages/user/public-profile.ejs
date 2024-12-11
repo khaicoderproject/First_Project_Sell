@@ -299,18 +299,25 @@
               <div class="card-body">
                 <h5 class="card-title">People you may know</h5>
                 <ul class="friend-list">
-                  <li>
-                    <div class="left">
-                      <img
-                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="right">
-                      <h3>John Doe</h3>
-                      <p>10 Friends</p>
-                    </div>
-                  </li>
+                  <%userMayKnow.forEach(item=>{%>
+                  <a
+                    href="/user/profile/<%=item.userIdentifier%>"
+                    class="text-dark text-decoration-none"
+                  >
+                    <li>
+                      <div class="left">
+                        <img
+                          src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                          alt=""
+                        />
+                      </div>
+                      <div class="right">
+                        <h3><%=item.fullName%></h3>
+                        <p>... Friends</p>
+                      </div>
+                    </li>
+                  </a>
+                  <%})%>
                 </ul>
               </div>
             </div>
@@ -322,7 +329,7 @@
       action=""
       method="post"
       dataPath="/user/profile"
-      userId="<%=userIdentifier.id%>"
+      userId="<%=user.id%>"
       id="change-post-react"
     ></form>
     <!-- Include footer.ejs -->

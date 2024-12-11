@@ -1,7 +1,7 @@
 const postsModel = require("../../models/posts.model");
 const userModel = require("../../models/user.model");
 module.exports.index = async (req, res) => {
-  const posts = await postsModel.find();
+  const posts = await postsModel.find().sort({ publishedDate: "desc" });
   const userIdentifier = await userModel.find();
   res.render("client/pages/post/index", {
     posts: posts,

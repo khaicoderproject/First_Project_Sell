@@ -28,6 +28,8 @@
 
     <!-- Product List -->
     <div class="container mt-5">
+      <%if(flash.length>0){%> <%-include('../../mixins/toast.ejs', {
+      content:flash }) %> <%}%>
       <div class="row">
         <% products.forEach(product => { %>
         <a href="/product/detail/<%=product.slugProduct%>">

@@ -1,0 +1,100 @@
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<style>
+  .toast {
+    width: 350px; /* Chỉnh chiều rộng của toast */
+    background-color: #222; /* Màu nền tối, sang trọng */
+    border: 1px solid #333; /* Viền tối tạo sự khác biệt */
+    border-radius: 8px; /* Bo tròn các góc */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bóng nhẹ tăng vẻ hiện đại */
+  }
+
+  .toast-header {
+    background-color: #000; /* Màu nền header đen mạnh mẽ */
+    color: #fff; /* Màu chữ trắng nổi bật */
+    font-weight: bold;
+    border-top-left-radius: 8px; /* Bo góc trái trên */
+    border-top-right-radius: 8px; /* Bo góc phải trên */
+  }
+
+  .toast-body {
+    color: #000; /* Màu chữ trắng để dễ đọc */
+    font-size: 14px; /* Cỡ chữ dễ đọc */
+    padding: 10px;
+  }
+
+  .toast-body p {
+    margin-bottom: 0;
+  }
+
+  /* Các hiệu ứng hover và focus cho sự nổi bật */
+  .toast:hover {
+    transform: translateY(-5px); /* Di chuyển lên khi hover */
+    transition: transform 0.3s ease; /* Hiệu ứng mượt mà */
+  }
+
+  .toast .close {
+    color: #fff; /* Màu của nút close */
+    opacity: 0.8;
+  }
+
+  .toast .close:hover {
+    opacity: 10; /* Đổi độ mờ khi hover */
+  }
+
+  /* Nút "close" trông sắc nét hơn */
+  .toast .close {
+    font-size: 18px;
+  }
+
+  /* Màu sắc cho các nút hay icon */
+  .toast-header img {
+    width: 24px;
+    height: 24px;
+  }
+</style>
+
+<div
+  class="toast position-fixed"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  style="top: 20px; right: 20px"
+>
+  <div class="toast-header">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg"
+      class="rounded mr-2"
+      alt="Nike logo"
+    />
+    <strong class="mr-auto">Thông báo</strong>
+    <small>just now</small>
+    <button
+      type="button"
+      class="ml-2 mb-1 close"
+      data-dismiss="toast"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body"><%=content%></div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    // Cấu hình và hiển thị toast
+    $(".toast").toast({
+      delay: 10000, // 10 giây
+    });
+    $(".toast").toast("show");
+
+    // Khởi tạo lại dropdown nếu cần
+    $('[data-toggle="dropdown"]').dropdown();
+  });
+</script>

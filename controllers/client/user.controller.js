@@ -19,6 +19,7 @@ module.exports.profile = async (req, res) => {
     res.render("client/pages/user/public-profile", {
       posts: posts,
       userIdentifier: userIdentifier,
+      userMayKnow: userMayKnow,
     });
   }
 };

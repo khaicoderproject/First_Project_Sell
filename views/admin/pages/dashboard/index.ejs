@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="/admin/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="dashboard-container">
@@ -36,27 +37,33 @@
         <section class="chart">
           <h2>Biểu đồ doanh thu</h2>
           <div class="chart-container">
-            <div class="chart-placeholder">
-              <p>Biểu đồ sẽ được hiển thị ở đây (Có thể tích hợp Chart.js)</p>
-              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-              <script>
-                var ctx = document.getElementById("myChart").getContext("2d");
-                var myChart = new Chart(ctx, {
+              
+              <!-- Thêm phần tử canvas để vẽ biểu đồ -->
+              <canvas id="myChart" width="400" height="200"></canvas>
+          </div>
+      </section>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+          // Đảm bảo rằng DOM đã được tải trước khi khởi tạo biểu đồ
+          window.onload = function() {
+              var ctx = document.getElementById("myChart").getContext("2d");
+              var myChart = new Chart(ctx, {
                   type: "line",
                   data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-                    datasets: [
-                      {
-                        label: "Doanh thu",
-                        data: [1200, 1900, 3000, 5000, 2300],
-                        borderColor: "#16a085",
-                        backgroundColor: "rgba(22, 160, 133, 0.2)",
-                        borderWidth: 2,
-                      },
-                    ],
+                      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+                      datasets: [{
+                          label: "Doanh thu",
+                          data: [1200, 1900, 3000, 5000, 2300],
+                          borderColor: "#16a085",
+                          backgroundColor: "rgba(22, 160, 133, 0.2)",
+                          borderWidth: 2,
+                      }],
                   },
-                });
-              </script>
+              });
+          };
+      </script>
+      
             </div>
           </div>
         </section>

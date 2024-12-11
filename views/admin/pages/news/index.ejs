@@ -34,7 +34,9 @@
                 <img src="<%- item.thumbnail %>" alt="" width="200" />
               </td>
               <td><%= item.title %></td>
-              <td><%- item.description %></td>
+              <td>
+                <%- item.description.replace(/<[^>]*>/g, '').slice(0, 100) %>
+              </td>
               <td><%= new Date(item.createdAt).toLocaleString() %></td>
               <!-- <td>
                 <a href="#" class="btn btn-secondary"><%= item.status %></a>

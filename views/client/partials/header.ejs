@@ -73,7 +73,7 @@
     </a>
 
     <!-- Notification Bell Icon -->
-    <a
+    <!-- <a
       class="nav-link mx-2"
       href="/notifications"
       data-toggle="tooltip"
@@ -81,8 +81,133 @@
     >
       <i class="fas fa-bell text-dark"></i>
       <span class="badge badge-pill badge-info">5</span>
-      <!-- Example notification count -->
-    </a>
+    </a> -->
+    <!-- Notification Bell Icon -->
+    <div class="dropdown mx-2">
+      <a
+        class="nav-link"
+        id="notificationDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        title="Notifications"
+      >
+        <i class="fas fa-bell text-dark"></i>
+        <span class="badge badge-pill badge-info">5</span>
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-right p-3 notification-menu"
+        aria-labelledby="notificationDropdown"
+      >
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="dropdown-header mb-0">Notifications</h6>
+          <a href="#" class="text-primary small">Mark all as read</a>
+        </div>
+        <div class="notification-item">
+          <div class="notification-avatar">
+            <img
+              src="https://via.placeholder.com/40"
+              alt="User Avatar"
+              class="rounded-circle"
+            />
+          </div>
+          <div class="notification-text">
+            <p class="mb-1">
+              <b>Tara Wesler</b> accepted your meeting request.
+            </p>
+            <small class="text-muted">4 min ago</small>
+          </div>
+        </div>
+
+        <div class="dropdown-divider"></div>
+        <a href="/notifications" class="dropdown-item text-center text-primary">
+          View all notifications
+        </a>
+      </div>
+    </div>
+
+    <style>
+      /* Notification Dropdown */
+      .notification-menu {
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .notification-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .notification-avatar {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      }
+
+      .notification-avatar img {
+        width: 100%;
+        height: auto;
+      }
+
+      .notification-text {
+        flex: 1;
+        white-space: normal; /* Đảm bảo văn bản xuống dòng */
+        word-wrap: break-word; /* Cắt văn bản nếu quá dài */
+      }
+
+      .notification-text p {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .notification-text small {
+        font-size: 12px;
+      }
+
+      .btn-sm {
+        padding: 2px 8px;
+        font-size: 12px;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .notification-menu {
+          width: calc(100% - 20px); /* Đảm bảo không tràn màn hình */
+          max-height: 80vh; /* Hạn chế chiều cao không vượt quá màn hình */
+          margin: 10px auto; /* Căn giữa dropdown */
+          padding: 15px;
+          border-radius: 8px; /* Thêm góc bo tròn cho đẹp hơn */
+          overflow-y: auto; /* Cuộn nội dung nếu vượt quá */
+        }
+
+        .notification-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .notification-avatar {
+          width: 40px;
+          height: 40px;
+          margin-bottom: 10px;
+        }
+
+        .notification-text {
+          font-size: 13px;
+        }
+
+        .notification-text p {
+          font-size: 13px;
+        }
+
+        .notification-text small {
+          font-size: 11px;
+        }
+      }
+    </style>
 
     <!-- User Icon and Options -->
     <% if (user) { %>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Giỏ Hàng</title>
+    <title>Giỏ Hàng & Đơn Hàng</title>
     <link rel="stylesheet" href="/client/css/style.css" />
     <link rel="stylesheet" href="/client/css/product.css" />
     <link
@@ -14,15 +14,60 @@
     />
     <style>
       body {
-        background-color: #f4f4f4;
+        background-color: #ffffff;
         font-family: "Arial", sans-serif;
+        color: #111;
       }
 
       .container {
-        background-color: white;
+        background-color: #f5f5f5;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         padding: 30px;
+        margin-bottom: 30px;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #111;
+      }
+
+      .switch-buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .switch-buttons button {
+        width: 200px;
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 50px;
+        border: 1px solid #111;
+        transition: all 0.3s ease;
+      }
+
+      .switch-buttons .btn-primary {
+        background: #111;
+        color: white;
+      }
+
+      .switch-buttons .btn-secondary {
+        background: #f5f5f5;
+        color: #111;
+      }
+
+      .switch-buttons button:hover {
+        background-color: #555;
+        color: white;
       }
 
       h2 {
@@ -35,6 +80,7 @@
       table {
         border-collapse: collapse;
         width: 100%;
+        margin-bottom: 30px;
       }
 
       th,
@@ -44,7 +90,7 @@
       }
 
       th {
-        background-color: #333;
+        background-color: #111;
         color: white;
         font-weight: bold;
       }
@@ -69,8 +115,8 @@
       }
 
       .btn-primary:hover {
-        background-color: #444;
-        border-color: #444;
+        background-color: #555;
+        border-color: #555;
       }
 
       .btn-secondary {
@@ -86,7 +132,7 @@
       .total-amount {
         font-size: 1.5rem;
         font-weight: bold;
-        color: #333;
+        color: #111;
       }
 
       .footer-button {
@@ -97,12 +143,25 @@
         max-width: 80px;
       }
 
-      .card {
+      .hidden {
+        display: none;
+      }
+
+      .section {
+        padding: 20px;
         border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
+        border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        background-color: #f9f9f9;
+        background-color: #fff;
+      }
+
+      .section-header {
+        background: #111;
+        color: white;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+        text-align: center;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -110,62 +169,101 @@
     <!-- Include header.ejs -->
     <%- include('../../partials/header.ejs') %>
 
-    <div class="container my-5">
-      <h2>Giỏ Hàng Của Bạn</h2>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">STT</th>
-            <th scope="col">Tên Sản Phẩm</th>
-            <th scope="col">Giá</th>
-            <th scope="col">Số Lượng</th>
-            <th scope="col">Tổng</th>
-            <th scope="col">Hành Động</th>
-          </tr>
-        </thead>
-        <% cartProduct.forEach((item,index)=>{ %>
-        <tbody>
-          <tr>
-            <td><%=index+1%></td>
-            <td>
-              <a
-                href="/product/detail/<%=item.productInfo.slugProduct%>"
-                class="text-dark"
-                ><%=item.productInfo.title%></a
-              >
-            </td>
-            <td><%=item.productInfo.price%> VND</td>
-            <td>
-              <!-- <input
-                type="number"
-                class="form-control"
-                value="<%=item.productInfo.quantity%>"
-                min="1"
-              /> -->
-              <%=item.quantity%>
-            </td>
-            <td><%=item.priceTotal%> VND</td>
-            <td>
-              <button class="btn btn-danger btn-sm">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-        <%}) %>
-      </table>
+    <div class="container">
+      <div class="page-header">
+        <h1>Quản Lý Giỏ Hàng & Đơn Hàng</h1>
+      </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <a href="/" class="btn btn-secondary">Tiếp tục mua sắm</a>
-        </div>
-        <div class="col-md-6 footer-button">
-          <div class="total-amount">
-            Tổng Tiền:
-            <span id="totalAmount"><%= cartProduct.totalPrice%> VND</span>
+      <div class="switch-buttons">
+        <button id="cartBtn" class="btn btn-primary">Giỏ Hàng</button>
+        <button id="ordersBtn" class="btn btn-secondary">
+          Đơn Hàng Đã Đặt
+        </button>
+      </div>
+
+      <!-- Giỏ Hàng -->
+      <div id="cartSection" class="section">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Tên Sản Phẩm</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Số Lượng</th>
+              <th scope="col">Tổng</th>
+              <th scope="col">Hành Động</th>
+            </tr>
+          </thead>
+          <% cartProduct.forEach((item,index)=>{ %>
+          <tbody>
+            <tr>
+              <td><%=index+1%></td>
+              <td>
+                <a
+                  href="/product/detail/<%=item.productInfo.slugProduct%>"
+                  class="text-dark"
+                  ><%=item.productInfo.title%></a
+                >
+              </td>
+              <td><%=item.productInfo.price.toLocaleString()%> VND</td>
+              <td><%=item.quantity%></td>
+              <td><%=item.priceTotal%> VND</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Xóa</button>
+              </td>
+            </tr>
+          </tbody>
+          <%}) %>
+        </table>
+
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/" class="btn btn-secondary">Tiếp tục mua sắm</a>
           </div>
-          <a href="/order/checkout" class="btn btn-primary btn-lg"
-            >Thanh Toán</a
-          >
+          <div class="col-md-6 footer-button">
+            <div class="total-amount">
+              Tổng Tiền:
+              <span id="totalAmount"><%= cartProduct.totalPrice%> VND</span>
+            </div>
+            <a href="/order/checkout" class="btn btn-primary btn-lg"
+              >Thanh Toán</a
+            >
+          </div>
         </div>
+      </div>
+
+      <!-- Đơn Hàng Đã Đặt -->
+      <div id="ordersSection" class="section hidden">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Mã Đơn Hàng</th>
+              <th scope="col">Ngày Đặt</th>
+              <th scope="col">Tổng Tiền</th>
+              <th scope="col">Trạng Thái</th>
+              <th scope="col">Hành Động</th>
+            </tr>
+          </thead>
+          <% orders.forEach((order, index) => { %>
+          <tbody>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= order.id %></td>
+              <td><%= new Date(order.createdAt).toLocaleString() %></td>
+              <td><%= order.totalPriceAll.toLocaleString() %> VND</td>
+              <td><%= order.status %></td>
+              <td>
+                <a
+                  href="/order/detail/<%= order.orderId %>"
+                  class="btn btn-primary btn-sm"
+                  >Xem Chi Tiết</a
+                >
+              </td>
+            </tr>
+          </tbody>
+          <% }) %>
+        </table>
       </div>
     </div>
 
@@ -180,7 +278,7 @@
     ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4f86dIHNDz0W1"
       crossorigin="anonymous"
     ></script>
     <script
@@ -188,5 +286,29 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const cartBtn = document.getElementById("cartBtn");
+      const ordersBtn = document.getElementById("ordersBtn");
+      const cartSection = document.getElementById("cartSection");
+      const ordersSection = document.getElementById("ordersSection");
+
+      cartBtn.addEventListener("click", () => {
+        cartSection.classList.remove("hidden");
+        ordersSection.classList.add("hidden");
+        cartBtn.classList.add("btn-dark");
+        cartBtn.classList.remove("btn-secondary");
+        ordersBtn.classList.add("btn-secondary");
+        ordersBtn.classList.remove("btn-dark");
+      });
+
+      ordersBtn.addEventListener("click", () => {
+        ordersSection.classList.remove("hidden");
+        cartSection.classList.add("hidden");
+        ordersBtn.classList.add("btn-dark");
+        ordersBtn.classList.remove("btn-secondary");
+        cartBtn.classList.add("btn-secondary");
+        cartBtn.classList.remove("btn-dark");
+      });
+    </script>
   </body>
 </html>

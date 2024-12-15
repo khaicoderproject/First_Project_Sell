@@ -1,10 +1,13 @@
 const cartModel = require("../../models/cart.model");
 const productModel = require("../../models/product.model");
 const formatCurrency = require("../../helpers/admin/formatCurrency");
+const orderModel = require("../../models/order.model");
 module.exports.index = async (req, res) => {
   try {
     const cartId = req.cookies.cartId;
     const cart = await cartModel.findOne({ _id: cartId }).lean();
+    // console.log(cart);
+    const orders = await orderModel.find({ user_id: cart._id });
     const cartProduct = cart.products;
     if (cartProduct) {
       if (cart.products.length > 0) {
@@ -27,6 +30,7 @@ module.exports.index = async (req, res) => {
     }
     res.render("client/pages/cart/index", {
       cartProduct: cartProduct,
+      orders: orders,
     });
   } catch (error) {}
 };

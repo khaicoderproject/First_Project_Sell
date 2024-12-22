@@ -25,6 +25,7 @@ app.use(
 app.use(flash());
 app.use(cookieParser());
 app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/views/client/pages/dashboard`));
 app.use(bodyParser.urlencoded({ extended: false })); //hỗ trợ req body
 // app.use(bodyParser.urlencoded({ extended: true })); //hỗ trợ req body
 app.use(bodyParser.json());

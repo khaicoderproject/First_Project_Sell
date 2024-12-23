@@ -1,10 +1,18 @@
 const productModel = require("../../models/product.model");
 const formatCurrency = require("../../helpers/admin/formatCurrency");
+const newsModel = require("../../models/news.model");
 module.exports.index = async (req, res) => {
-  const products = await productModel.find({ deleted: false });
+  const products = await productModel.find({ deleted: false }).limit(5);
+  const newProducts = await productModel
+    .find({ deleted: false })
+    .sort({ createdAt: "desc" })
+    .limit(5);
+  const news = await newsModel.find().sort({ createdAt: "desc" }).limit(5);
   res.render("client/pages/dashboard/index", {
     products: products,
     formatCurrency: formatCurrency,
+    newProducts: newProducts,
+    news,
   });
 };
 module.exports.search = async (req, res) => {

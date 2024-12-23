@@ -10,8 +10,8 @@ module.exports.index = async (req, res) => {
   const news = await newsModel.find().sort({ createdAt: "desc" }).limit(5);
   res.render("client/pages/dashboard/index", {
     products: products,
-    formatCurrency: formatCurrency,
-    newProducts: newProducts,
+    formatCurrency,
+    newProducts,
     news,
   });
 };

@@ -10,6 +10,7 @@ const authMiddleware = require("../../middleware/client/auth.middleware");
 const userRoute = require("./user.route");
 const postRoute = require("./post.route");
 const newsRoute = require("./news.route");
+// const {wrapRequest}= require("../../utils/wrapRequest")
 module.exports = async (app) => {
   // app.use(cartMiddleware);
   // app.use(["/", "/cart", "/product"], cartMiddleware);

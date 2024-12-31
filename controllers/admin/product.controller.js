@@ -16,9 +16,9 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   // console.log(req.body);
   // console.log(req.file);
-  if (req.file) {
-    req.body.thumbnail = req.file.filename;
-  }
+  // if (req.file) {
+  //   req.body.thumbnail = req.file.filename;
+  // } cai nay danh cho up load local
   const productCurrent = await productModel.find().countDocuments();
   if (!req.body.position) {
     req.body.position = productCurrent + 1;

@@ -2,6 +2,7 @@ const productModel = require("../../models/product.model");
 const formatCurrency = require("../../helpers/admin/formatCurrency");
 const newsModel = require("../../models/news.model");
 module.exports.index = async (req, res) => {
+  // throw new Error(123);
   const products = await productModel.find({ deleted: false }).limit(5);
   const newProducts = await productModel
     .find({ deleted: false })
@@ -34,7 +35,7 @@ module.exports.search = async (req, res) => {
       title: { $regex: new RegExp(search, "i") }, // 'i' là cờ không phân biệt chữ hoa, chữ thường
     });
 
-    res.render("client/pages/dashboard/index", {
+    res.render("client/pages/category/index", {
       products: products,
       formatCurrency: formatCurrency,
     });

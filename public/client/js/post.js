@@ -6,7 +6,7 @@ if (reactPost.length > 0) {
       const path = formChange.getAttribute("dataPath");
       const id = formChange.getAttribute("userId");
       const dataPostId = item.getAttribute("data-post-id");
-      console.log(formChange);
+      // console.log(formChange);
       const newPath = `${path}/sendReact/${id}-${dataPostId}`;
       formChange.action = newPath;
       formChange.submit();

@@ -11,6 +11,7 @@ const routeAdmin = require("./routes/admin/index.route");
 const database = require("./config/database.config");
 const configPrefixAdmin = require("./config/prefixAdmin.config");
 const flash = require("express-flash");
+const errorMiddleware = require("./middleware/errors/handleErrors");
 database.connect();
 app.use(cookieParser("notification"));
 app.use(
@@ -36,11 +37,16 @@ app.use(
   express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 app.locals.prefixAdmin = configPrefixAdmin.prefixAdmin;
+app.get("/test", (req, res) => {
+  // Giả lập lỗi
+  throw new Error("Giả lập lỗi");
+});
 route(app);
 routeAdmin(app);
 app.use("*", (req, res) => {
-  res.json("url không hợp lệ!");
+  res.render("errors/404");
 });
+app.use(errorMiddleware);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

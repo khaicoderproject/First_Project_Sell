@@ -14,7 +14,7 @@ module.exports.index = async (req, res) => {
   // console.log(sort);
   const category = await categoryModel.findOne({ slug: slug });
   const products = await productModel
-    .find({ category_id: category.id })
+    .find({ category_id: category.id, deleted: false })
     .sort(sort);
   // console.log(products);
   // products.forEach((product) => {

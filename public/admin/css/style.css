@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -33,6 +33,15 @@ body {
   border-right: 2px solid #000;
   overflow-y: auto; /* Cho phép cuộn nếu có nhiều nội dung */
   z-index: 100; /* Đảm bảo sidebar luôn ở trên cùng */
+}
+.sidebar {
+  overflow-y: scroll; /* Cho phép cuộn dọc */
+  -ms-overflow-style: none; /* Ẩn thanh cuộn trong IE và Edge */
+  scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn trong các trình duyệt dựa trên WebKit như Chrome, Safari */
 }
 
 .sidebar-header h2 {
@@ -64,7 +73,7 @@ body {
 
 .sidebar-nav ul li a:hover {
   background-color: #000;
-  color:#fff ;
+  color: #fff;
   padding-left: 30px;
 }
 
@@ -257,7 +266,7 @@ body {
 }
 
 .btn-submit {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -268,7 +277,7 @@ body {
 .btn-submit:hover {
   background-color: #45a049;
 }
-.h1-header{
+.h1-header {
   text-align: center;
   font-weight: bold;
 }
@@ -281,14 +290,15 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.product-table th, .product-table td {
+.product-table th,
+.product-table td {
   padding: 12px 15px;
   text-align: left;
   border: 1px solid #ddd;
 }
 
 .product-table th {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   font-weight: bold;
 }
@@ -316,7 +326,8 @@ body {
   margin-top: 20px; /* Giữ nguyên margin-top */
 }
 
-.product-table th, .product-table td {
+.product-table th,
+.product-table td {
   padding: 12px 20px; /* Padding không thay đổi */
   text-align: left;
   border: 1px solid #ccc; /* Viền nhẹ với màu xám */
@@ -358,12 +369,11 @@ body {
   color: #333;
 }
 
-.logo-dashboard{
-  margin-left:30px
+.logo-dashboard {
+  margin-left: 30px;
 }
 
-
-.text-category{
+.text-category {
   margin: 50px;
   text-align: center;
 }

@@ -8,6 +8,7 @@ const roleRoute = require("../../routes/admin/role.route");
 const listUserRoute = require("./listUser.route");
 const categoryRoute = require("./category.route");
 const newsRoute = require("./news.route");
+const perrmissionRoute = require("./permissions.route");
 module.exports = (app) => {
   app.use(prefixAdmin + "/", authMiddleware.checkToken, dashboardRoute);
   app.use(prefixAdmin + "/product", authMiddleware.checkToken, productRoute);
@@ -16,4 +17,5 @@ module.exports = (app) => {
   app.use(prefixAdmin + "/list-user", listUserRoute);
   app.use(prefixAdmin + "/category", categoryRoute);
   app.use(prefixAdmin + "/news", newsRoute);
+  app.use(prefixAdmin + "/permissions", perrmissionRoute);
 };

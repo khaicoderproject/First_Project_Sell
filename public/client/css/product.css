@@ -54,7 +54,13 @@ body {
   padding: 15px;
 }
 
+/* Giới hạn chiều dài tiêu đề sản phẩm và sử dụng ba chấm (...) khi dài */
 .product-title {
+  white-space: nowrap; /* Không cho chữ xuống dòng */
+  overflow: hidden; /* Ẩn phần chữ thừa */
+  text-overflow: ellipsis; /* Thêm dấu ba chấm (...) */
+  display: block; /* Đảm bảo phần tử hiển thị như block */
+  width: 100%; /* Đảm bảo tiêu đề không kéo dài ra ngoài */
   font-size: 1.1rem;
   font-weight: 600;
   color: #333;
@@ -62,17 +68,26 @@ body {
   line-height: 1.4;
 }
 
+/* Giới hạn phần mô tả sản phẩm nếu quá dài */
 .product-description {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 15px;
   line-height: 1.6;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Cắt bớt mô tả nếu quá dài */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Giới hạn 3 dòng cho mô tả */
+  -webkit-box-orient: vertical;
 }
 
+/* Giới hạn phần giá sản phẩm nếu quá dài */
 .product-price {
   font-size: 1.2rem;
   font-weight: 700;
   color: #e74c3c;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Cắt bớt giá nếu quá dài */
 }
 
 .product-discount {

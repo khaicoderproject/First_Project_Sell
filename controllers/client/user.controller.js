@@ -3,7 +3,9 @@ const postsModel = require("../../models/posts.model");
 module.exports.profile = async (req, res) => {
   const userId = req.params.id;
   const userIdentifier = await userModel.findOne({ userIdentifier: userId });
-  const posts = await postsModel.find({ author: userId });
+  const posts = await postsModel
+    .find({ author: userId })
+    .sort({ createdAt: "desc" });
   const userMayKnow = await userModel.find({
     token: { $ne: req.cookies.tokenUser },
   });

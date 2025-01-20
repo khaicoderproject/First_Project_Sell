@@ -52,11 +52,7 @@ module.exports.registerPost = async (req, res) => {
       error: "Mật khẩu không hợp lệ!",
     });
   }
-  if (email === "" || password === "") {
-    return res.render("client/pages/auth/register", {
-      error: "Vui lòng điền đúng thông tin!",
-    });
-  }
+
   req.flash("toast", "Chúc mừng bạn đăng ký tài khoản thành công!🎉");
   req.body.thumbnail = generateAvt.avtMan();
   req.body.password = md5(req.body.password);

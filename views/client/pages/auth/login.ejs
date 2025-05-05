@@ -11,6 +11,11 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
   </head>
   <body>
     <section
@@ -49,9 +54,7 @@
                         class="fw-normal mb-3 pb-3"
                         style="letter-spacing: 1px"
                       >
-                        Sign into your account <% if (error) { %>
-                        <div class="alert alert-danger"><%= error %></div>
-                        <% } %>
+                        Sign into your account
                       </h5>
 
                       <div data-mdb-input-init class="form-outline mb-4">
@@ -104,5 +107,22 @@
         </div>
       </div>
     </section>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <% if (error) { %>
+    <script>
+      // Gọi Toastify chỉ khi có error
+      Toastify({
+        text: "<%= error %>", // Hiển thị thông báo lỗi từ backend
+        className: "info",
+        style: {
+          background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+          color: "black",
+        },
+      }).showToast();
+    </script>
+    <% } %>
   </body>
 </html>

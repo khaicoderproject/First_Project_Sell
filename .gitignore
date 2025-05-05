@@ -1,5 +1,5 @@
 .env
-# package.json
+package.json
 package-lock.json
 /node_modules
 fixbug.md

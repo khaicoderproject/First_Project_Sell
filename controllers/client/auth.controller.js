@@ -52,14 +52,13 @@ module.exports.registerPost = async (req, res) => {
       error: "Mật khẩu không hợp lệ!",
     });
   }
-
-  req.flash("toast", "Chúc mừng bạn đăng ký tài khoản thành công!🎉");
   req.body.thumbnail = generateAvt.avtMan();
   req.body.password = md5(req.body.password);
   req.body.userIdentifier = generateId.user();
   const user = new userModel(req.body);
   user.save();
   res.cookie("tokenUser", user.token);
+  req.flash("message", "Chúc mừng bạn đăng ký tài khoản thành công!🎉");
   res.redirect("/");
 };
 

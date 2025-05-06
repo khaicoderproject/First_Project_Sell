@@ -18,7 +18,7 @@ a:hover {
 }
 
 /* Bố cục chính */
-.container {
+.container-post {
     margin: 40px auto;
     max-width: 1100px; /* Tăng chiều rộng tối đa */
     padding: 0 15px;

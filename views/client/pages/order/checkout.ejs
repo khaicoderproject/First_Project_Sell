@@ -12,50 +12,629 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      /* Custom styling for product images */
-      .product-image {
-        max-width: 100px;
-        height: auto;
-        margin-right: 15px;
+      /* Variables */
+      :root {
+        --primary: #111;
+        --secondary: #f5f5f5;
+        --accent: #ff3b30;
+        --text: #111;
+        --text-light: #666;
+        --border: #e5e5e5;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --gradient: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        --gradient-dark: linear-gradient(45deg, #111 30%, #333 90%);
+        --gradient-accent: linear-gradient(45deg, #ff3b30 0%, #ff2d55 100%);
       }
 
-      .price-highlight {
-        font-size: 1.5em;
-        color: #333;
-        font-weight: bold;
+      /* Base Styles */
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
+        color: var(--text);
       }
 
-      .form-group label {
-        font-weight: bold;
+      /* Layout */
+      .checkout-container {
+        padding: 80px 20px;
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow-x: hidden;
       }
 
-      /* Add more spacing between sections */
-      .section-spacing {
+      .checkout-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 400px;
+        background: var(--gradient);
+        z-index: 0;
+        transform: skewY(-3deg);
+        transform-origin: top left;
+      }
+
+      /* Typography */
+      .checkout-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: -1.5px;
+        margin-bottom: 60px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        animation: fadeInUp 1s ease;
+      }
+
+      .checkout-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--gradient-dark);
+        border-radius: 2px;
+        animation: widthGrow 1.5s ease;
+      }
+
+      .section-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: var(--text);
+      }
+
+      /* Cards */
+      .checkout-card {
+        background: white;
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        animation: fadeInUp 1s ease 0.2s backwards;
         margin-bottom: 30px;
       }
 
-      .product-info .list-group-item {
-        border: 1px solid #f0f0f0;
+      .checkout-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* Product List */
+      .product-item {
+        border: 1px solid var(--border);
+        margin-bottom: 15px;
+        padding: 20px;
+        border-radius: 16px;
+        transition: var(--transition);
+        background: white;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .product-item > div {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .product-image {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-right: 20px;
+        transition: var(--transition);
+      }
+
+      .product-item:hover .product-image {
+        transform: scale(1.05);
+      }
+
+      /* Form Elements */
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-label {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
         margin-bottom: 10px;
+        display: block;
+      }
+
+      .form-input {
+        height: 50px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        transition: var(--transition);
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+      }
+
+      .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+        padding-right: 45px;
+      }
+
+      /* Bank Details */
+      .bank-details {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-top: 20px;
+        box-shadow: var(--shadow);
+        animation: fadeIn 0.5s ease;
+      }
+
+      .bank-details-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .bank-details-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 24px;
+        background: var(--primary);
+        border-radius: 2px;
+      }
+
+      .bank-details-text {
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+      }
+
+      .bank-details-label {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* Price Display */
+      .price-display {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text);
+        margin: 30px 0;
+        padding: 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      /* Buttons */
+      .checkout-button {
+        height: 60px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border-radius: 30px;
+        background: var(--gradient-dark);
+        border: none;
+        transition: var(--transition);
+        margin-top: 20px;
+        width: 100%;
+        color: rgb(231, 218, 218);
+      }
+
+      .checkout-button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes widthGrow {
+        from {
+          width: 0;
+        }
+        to {
+          width: 80px;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .checkout-container {
+          max-width: 960px;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .checkout-container {
+          max-width: 720px;
+        }
+
+        .checkout-title {
+          font-size: 2.5rem;
+        }
+
+        .product-item {
+          flex-direction: column;
+        }
+
+        .product-image {
+          width: 100%;
+          height: 200px;
+          margin-right: 0;
+          margin-bottom: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .checkout-container {
+          max-width: 540px;
+          padding: 40px 15px;
+        }
+
+        .checkout-title {
+          font-size: 2.25rem;
+          margin-bottom: 40px;
+        }
+
+        .checkout-card {
+          padding: 20px;
+        }
+
+        .product-item {
+          padding: 15px;
+        }
+
+        .product-image {
+          height: 150px;
+        }
+
+        .price-display {
+          font-size: 1.5rem;
+          padding: 15px;
+          flex-direction: column;
+          text-align: center;
+          gap: 10px;
+        }
+
+        .checkout-button {
+          height: 50px;
+          font-size: 0.9rem;
+        }
+
+        .form-input {
+          height: 45px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .checkout-container {
+          padding: 30px 15px;
+        }
+
+        .checkout-title {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.25rem;
+        }
+
+        .product-item {
+          padding: 10px;
+        }
+
+        .product-image {
+          height: 120px;
+        }
+
+        .bank-details {
+          padding: 15px;
+        }
+
+        .form-group {
+          margin-bottom: 20px;
+        }
+
+        .form-label {
+          font-size: 0.9rem;
+        }
+
+        .form-input {
+          height: 40px;
+          font-size: 0.9rem;
+        }
+
+        .qr-code {
+          width: 250px;
+          height: 250px;
+        }
+      }
+
+      .bank-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .bank-option {
+        border: 2px solid var(--border);
+        border-radius: 12px;
         padding: 15px;
-        border-radius: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        background: white;
+        position: relative;
+        overflow: hidden;
       }
 
-      .form-control {
-        border-radius: 8px;
+      .bank-option:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
       }
 
-      .btn-block {
-        background-color: #007bff;
-        color: white;
-        font-weight: bold;
+      .bank-option.active {
+        border-color: var(--primary);
+        background: rgba(17, 17, 17, 0.05);
+        box-shadow: var(--shadow);
+      }
+
+      .bank-option span {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-top: 8px;
+      }
+
+      .bank-option img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 8px;
+        filter: grayscale(100%);
+        transition: var(--transition);
+      }
+
+      .bank-option:hover img,
+      .bank-option.active img {
+        filter: grayscale(0%);
+      }
+
+      .bank-option.momo img {
+        width: 80px;
+        height: 40px;
+      }
+
+      .bank-info {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      .bank-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        position: relative;
+        padding: 10px;
+        border-radius: 8px;
+        transition: var(--transition);
+        background: white;
+      }
+
+      .bank-info-item:hover {
+        background: rgba(17, 17, 17, 0.05);
+      }
+
+      .bank-info-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .bank-info-label {
+        font-weight: 600;
+        min-width: 150px;
+        color: var(--text);
+      }
+
+      .bank-info-value {
+        flex: 1;
+        font-family: monospace;
+        font-size: 1.1rem;
+        color: var(--primary);
+        font-weight: 500;
+        margin: 0 10px;
+      }
+
+      .copy-btn {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        padding: 8px;
+        margin-left: 10px;
+        transition: var(--transition);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .copy-btn:hover {
+        color: var(--accent);
+        background: rgba(17, 17, 17, 0.1);
+        transform: scale(1.1);
+      }
+
+      .copy-btn i {
+        font-size: 1rem;
+      }
+
+      .bank-note {
+        margin-top: 20px;
+        padding: 15px;
+        background: #fff3cd;
+        border-radius: 8px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .bank-note i {
+        color: #856404;
+        font-size: 1.2rem;
+        margin-top: 2px;
+      }
+
+      .bank-note p {
+        color: #856404;
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      #directPaymentInfo .bank-info-item {
+        background: #f8f9fa;
         border-radius: 8px;
         padding: 15px;
+        margin-bottom: 15px;
       }
 
-      .btn-block:hover {
-        background-color: #0056b3;
+      #directPaymentInfo .bank-info-value {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      #directPaymentInfo .bank-info-item:last-child {
+        background: #fff3cd;
+        border: 1px solid #ffeeba;
+      }
+
+      .form-text {
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        color: #6c757d;
+        transition: color 0.3s ease;
+      }
+
+      .form-text.text-muted {
+        color: #6c757d;
+      }
+
+      .form-input::placeholder {
+        color: #adb5bd;
+        font-style: italic;
+      }
+
+      #addressCharCount {
+        font-weight: 500;
+      }
+
+      #addressCharCount span {
+        font-weight: 700;
+      }
+
+      .qr-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        margin-top: 20px;
+      }
+
+      .qr-code {
+        width: 300px;
+        height: 300px;
+        margin-top: 10px;
+        padding: 15px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      .qr-code img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* Notification Styles */
+      .alert {
+        margin-top: 15px;
+        border-radius: 8px;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .alert i {
+        font-size: 1.2rem;
+      }
+
+      .alert .close {
+        margin-left: auto;
+        font-size: 1.2rem;
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+      }
+
+      .alert .close:hover {
+        opacity: 1;
       }
     </style>
   </head>
@@ -63,20 +642,20 @@
     <!-- Include header.ejs -->
     <%- include('../../partials/header.ejs') %>
 
-    <div class="container my-5">
-      <h2 class="text-center mb-4"><b>Thanh Toán</b></h2>
+    <div class="checkout-container">
+      <h2 class="checkout-title">Thanh Toán</h2>
 
       <!-- Product Info Section -->
-      <div class="row mb-4 section-spacing">
-        <div class="col-md-6 product-info">
-          <h4>Thông tin sản phẩm</h4>
+      <div class="row">
+        <div class="col-md-6 checkout-card">
+          <h4 class="section-title">Thông tin sản phẩm</h4>
           <ul class="list-group">
             <% cartProduct.forEach((product)=>{ %>
             <a
               href="/product/detail/<%=product.productInfo.slugProduct%>"
               class="text-dark text-decoration-none"
             >
-              <li class="list-group-item d-flex justify-content-between">
+              <li class="product-item d-flex justify-content-between">
                 <div class="d-flex">
                   <img
                     src="<%=product.productInfo.thumbnail %>"
@@ -90,9 +669,9 @@
                   </div>
                 </div>
                 <div>
-                  <strong>Đơn giá:</strong> <%= product.productInfo.price %>
+                  <strong>Đơn giá:</strong> <%= product.productInfo.price.toLocaleString() %>
                   VND<br />
-                  <strong>Tổng cộng:</strong> <%= product.priceTotal %> VND
+                  <strong>Tổng cộng:</strong> <%= product.priceTotal.toLocaleString() %> VND
                 </div>
               </li>
             </a>
@@ -102,79 +681,163 @@
 
         <!-- Payment Info Section -->
         <div class="col-md-6">
-          <form action="/order/process-success" method="POST">
+          <form action="/order/process-success" method="POST" class="checkout-card">
             <div class="form-group">
-              <label for="fullName">Họ và tên</label>
+              <label class="form-label" for="fullName">Họ và tên</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control form-input"
                 id="fullName"
                 name="fullName"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
+              <label class="form-label" for="email">Email</label>
               <input
                 type="email"
-                class="form-control"
+                class="form-control form-input"
                 id="email"
                 name="email"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="phone">Số điện thoại</label>
+              <label class="form-label" for="phone">Số điện thoại</label>
               <input
                 type="tel"
-                class="form-control"
+                class="form-control form-input"
                 id="phone"
                 name="phone"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="address">Địa chỉ</label>
+              <label class="form-label" for="address">Địa chỉ</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control form-input"
                 id="address"
                 name="address"
+                maxlength="200"
                 required
               />
+              <div class="d-flex justify-content-between align-items-center mt-1">
+                <small class="form-text text-muted" id="addressNote">
+                  * Nếu sản phẩm có giá trị sử dụng online, bạn không cần điền địa chỉ
+                </small>
+                <small class="form-text text-muted" id="addressCharCount">
+                  Còn lại: <span>200</span> ký tự
+                </small>
+              </div>
             </div>
 
             <!-- Payment Method -->
             <div class="form-group">
-              <label for="paymentMethod">Phương thức thanh toán</label>
+              <label class="form-label" for="paymentMethod">Phương thức thanh toán</label>
               <select
-                class="form-control"
+                class="form-control form-input form-select"
                 id="paymentMethod"
                 name="paymentMethod"
                 required
               >
-                <option value="direct">Thanh toán sau khi nhận hàng</option>
-                <option value="bank-transfer">Thanh toán qua ngân hàng</option>
+                <option value="bank-transfer">Chuyển khoản ngân hàng</option>
+                <option value="direct">Thanh toán khi nhận hàng</option>
               </select>
             </div>
 
             <!-- Show Bank Account Details if Bank Transfer is Selected -->
-            <div id="bankDetails" class="form-group" style="display: none">
-              <h5>Thông tin chuyển khoản ngân hàng</h5>
-              <p><strong>Ngân hàng: </strong> Vietcombank</p>
-              <p><strong>Số tài khoản: </strong> 123456789</p>
-              <p><strong>Chủ tài khoản: </strong> Công ty ABC</p>
+            <div id="bankDetails" class="bank-details">
+              <h5 class="bank-details-title">Thông tin chuyển khoản ngân hàng</h5>
+              
+              <!-- Bank Selection -->
+              <div class="form-group">
+                <label class="form-label">Chọn ngân hàng</label>
+                <div class="bank-options">
+                  <div class="bank-option active" data-bank="momo">
+                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="MoMo">
+                    <span>MoMo</span>
+                  </div>
+                  <div class="bank-option" data-bank="techcombank">
+                    <img src="https://vietqr.net/portal-service/resources/icons/TCB.png" alt="Techcombank">
+                    <span>Techcombank</span>
+                  </div>
+                  <div class="bank-option" data-bank="mbbank">
+                    <img src="https://vietqr.net/portal-service/resources/icons/MB.png" alt="MB Bank">
+                    <span>MB Bank</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bank Information -->
+              <div class="bank-info">
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Ngân hàng:</span>
+                  <span class="bank-info-value" id="bankName">MoMo</span>
+                </div>
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Số tài khoản:</span>
+                  <span class="bank-info-value" id="accountNumber">0382982055</span>
+                  <button class="copy-btn" onclick="copyToClipboard('accountNumber')">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Chủ tài khoản:</span>
+                  <span class="bank-info-value" id="accountName">Đinh Như Khải</span>
+                  <button class="copy-btn" onclick="copyToClipboard('accountName')">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Nội dung chuyển khoản:</span>
+                  <span class="bank-info-value" id="transferContent">THANHTOAN_[Số điện thoại của bạn]</span>
+                  <button class="copy-btn" onclick="copyToClipboard('transferContent')">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+                <!-- Add QR Code container -->
+                <div class="bank-info-item qr-container">
+                  <span class="bank-info-label">Quét mã QR:</span>
+                  <div id="qrCode" class="qr-code"></div>
+                </div>
+              </div>
+
+              <div class="bank-note">
+                <i class="fas fa-info-circle"></i>
+                <p>Vui lòng chuyển khoản đúng số tiền và nội dung để đơn hàng được xử lý nhanh chóng.</p>
+              </div>
+              <div class="bank-note" style="background: #fff3cd; margin-top: 10px;">
+                <i class="fas fa-exclamation-triangle" style="color: #856404;"></i>
+                <p style="color: #856404;">Lưu ý: Vui lòng kiểm tra kỹ số tài khoản trước khi chuyển khoản để tránh nhầm lẫn.</p>
+              </div>
+            </div>
+
+            <!-- Show Direct Payment Info if Direct Payment is Selected -->
+            <div id="directPaymentInfo" class="bank-details" style="display: none">
+              <h5 class="bank-details-title">Thông tin thanh toán khi nhận hàng</h5>
+              <div class="bank-info">
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Địa chỉ nhận hàng:</span>
+                  <span class="bank-info-value" id="deliveryAddress"></span>
+                </div>
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Số điện thoại:</span>
+                  <span class="bank-info-value" id="deliveryPhone"></span>
+                </div>
+                <div class="bank-info-item">
+                  <span class="bank-info-label">Ghi chú:</span>
+                  <span class="bank-info-value">Vui lòng chuẩn bị đủ số tiền khi nhận hàng. Nhân viên sẽ giao hàng và thu tiền trực tiếp.</span>
+                </div>
+              </div>
             </div>
 
             <!-- Total Price -->
-            <div class="form-group">
-              <h4 class="price-highlight">
-                Tổng cộng:
-                <span id="totalAmount"><%= cartProduct.totalPrice %> VND</span>
-              </h4>
+            <div class="price-display">
+              Tổng cộng: <span id="totalAmount"><%=totalPrice.toLocaleString()%> VND</span>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="checkout-button">
               Xác nhận thanh toán
             </button>
           </form>
@@ -186,34 +849,405 @@
     <%- include('../../partials/footer.ejs') %>
 
     <!-- Scripts -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
     <!-- Script to Toggle Bank Transfer Details -->
     <script>
-      document
-        .getElementById("paymentMethod")
-        .addEventListener("change", function () {
-          var bankDetails = document.getElementById("bankDetails");
-          if (this.value === "bank-transfer") {
-            bankDetails.style.display = "block";
-          } else {
-            bankDetails.style.display = "none";
+      // Check if products are online
+      function hasOnlineProducts() {
+        const products = document.querySelectorAll('.product-item');
+        let hasOnline = false;
+        products.forEach(product => {
+          const title = product.querySelector('div strong').nextSibling.textContent.trim();
+          if (title.toLowerCase().includes('online') || title.toLowerCase().includes('digital')) {
+            hasOnline = true;
           }
         });
+        return hasOnline;
+      }
+
+      // Function to update address field based on payment method
+      function updateAddressField(paymentMethod) {
+        const addressInput = document.getElementById('address');
+        const addressNote = document.getElementById('addressNote');
+        const isOnline = hasOnlineProducts();
+        
+        if (paymentMethod === 'bank-transfer' || isOnline) {
+          addressInput.required = false;
+          addressInput.placeholder = 'Không bắt buộc cho thanh toán chuyển khoản';
+          addressNote.style.display = 'block';
+        } else {
+          addressInput.required = true;
+          addressInput.placeholder = 'Nhập địa chỉ nhận hàng';
+          addressNote.style.display = 'none';
+        }
+      }
+
+      // Update character count for address
+      document.getElementById('address').addEventListener('input', function() {
+        const maxLength = this.maxLength;
+        const currentLength = this.value.length;
+        const remaining = maxLength - currentLength;
+        document.querySelector('#addressCharCount span').textContent = remaining;
+        
+        // Update color based on remaining characters
+        const charCountElement = document.getElementById('addressCharCount');
+        if (remaining < 50) {
+          charCountElement.style.color = '#dc3545';
+        } else if (remaining < 100) {
+          charCountElement.style.color = '#ffc107';
+        } else {
+          charCountElement.style.color = '#6c757d';
+        }
+      });
+
+      // Bank transfer handling
+      const bankOptions = document.querySelectorAll('.bank-option');
+      const bankDetails = {
+        momo: {
+          name: 'MoMo',
+          accountNumber: '0382982055',
+          accountName: 'Đinh Như Khải',
+          bankId: 'MOMO'
+        },
+        techcombank: {
+          name: 'Techcombank',
+          accountNumber: '353520058888',
+          accountName: 'Đinh Như Khải',
+          bankId: 'TCB'
+        },
+        mbbank: {
+          name: 'MB Bank',
+          accountNumber: '353520058888',
+          accountName: 'Đinh Như Khải',
+          bankId: 'MB'
+        }
+      };
+
+      // Set initial bank info
+      function setBankInfo(bankCode) {
+        const bank = bankDetails[bankCode];
+        if (!bank) return;
+        
+        document.getElementById('bankName').textContent = bank.name;
+        document.getElementById('accountNumber').textContent = bank.accountNumber;
+        document.getElementById('accountName').textContent = bank.accountName;
+
+        // Hide QR code for MoMo
+        const qrWrapper = document.getElementById('qrCode').parentElement;
+        if (bankCode === 'momo') {
+          qrWrapper.style.display = 'none';
+          return;
+        } else {
+          qrWrapper.style.display = 'flex';
+        }
+
+        // Generate QR code for other banks
+        const amount = document.getElementById('totalAmount').textContent.replace(/[^0-9]/g, '');
+        const phone = document.getElementById('phone').value;
+        const transferContent = phone ? `THANHTOAN_${phone}` : 'THANHTOAN_[Số_điện_thoại_của_bạn]';
+
+        // Create VietQR URL
+        const vietqrUrl = `https://img.vietqr.io/image/${bank.bankId}-${bank.accountNumber}-compact2.png?amount=${amount}&addInfo=${transferContent}`;
+        console.log(vietqrUrl);
+        
+        // Update QR code display
+        const qrContainer = document.getElementById('qrCode');
+        if (qrContainer) {
+          qrContainer.innerHTML = `<img src="${vietqrUrl}" alt="VietQR Code" style="width: 100%; height: 100%; object-fit: contain;">`;
+        }
+      }
+
+      // Initialize with MoMo
+      setBankInfo('momo');
+
+      // Add click event to all bank options
+      bankOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove active class from all options
+          bankOptions.forEach(opt => opt.classList.remove('active'));
+          
+          // Add active class to clicked option
+          this.classList.add('active');
+
+          // Get bank code from data attribute
+          const bankCode = this.getAttribute('data-bank');
+          
+          // Update bank information
+          setBankInfo(bankCode);
+        });
+      });
+
+      // Update QR code when amount or phone changes
+      document.getElementById('phone').addEventListener('input', function() {
+        const activeBank = document.querySelector('.bank-option.active');
+        if (activeBank) {
+          const bankCode = activeBank.getAttribute('data-bank');
+          setBankInfo(bankCode);
+        }
+      });
+
+      // Function to show payment notification
+      function showPaymentNotification(paymentMethod) {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-info alert-dismissible fade show';
+        
+        if (paymentMethod === 'bank-transfer') {
+          notification.innerHTML = `
+            <i class="fas fa-info-circle"></i>
+            <strong>Thông báo:</strong> Bạn đã chọn phương thức thanh toán chuyển khoản ngân hàng. Vui lòng chọn ngân hàng và thực hiện chuyển khoản theo thông tin bên dưới.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          `;
+        } else {
+          notification.innerHTML = `
+            <i class="fas fa-info-circle"></i>
+            <strong>Thông báo:</strong> Bạn đã chọn phương thức thanh toán khi nhận hàng. Vui lòng điền đầy đủ thông tin địa chỉ để nhân viên có thể giao hàng.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          `;
+        }
+
+        // Remove any existing notifications
+        const existingNotification = document.querySelector('.alert');
+        if (existingNotification) {
+          existingNotification.remove();
+        }
+
+        // Insert notification after payment method select
+        const paymentMethodSelect = document.getElementById('paymentMethod');
+        paymentMethodSelect.parentNode.insertAdjacentElement('afterend', notification);
+      }
+
+      // Payment method handling
+      document.getElementById("paymentMethod").addEventListener("change", function () {
+        var bankDetails = document.getElementById("bankDetails");
+        var directPaymentInfo = document.getElementById("directPaymentInfo");
+        const isOnline = hasOnlineProducts();
+        const addressInput = document.getElementById('address');
+        
+        if (this.value === "bank-transfer") {
+          bankDetails.style.display = "block";
+          directPaymentInfo.style.display = "none";
+          updateAddressField('bank-transfer');
+          showPaymentNotification('bank-transfer');
+          // Clear address validation when switching to bank transfer
+          addressInput.classList.remove('is-invalid');
+          const errorDiv = addressInput.parentNode.querySelector('.error-message');
+          if (errorDiv) {
+            errorDiv.textContent = '';
+          }
+        } else {
+          // Only show direct payment info if not online product
+          if (!isOnline) {
+            bankDetails.style.display = "none";
+            directPaymentInfo.style.display = "block";
+            updateAddressField('direct');
+            
+            // Update delivery info
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            document.getElementById('deliveryAddress').textContent = address;
+            document.getElementById('deliveryPhone').textContent = phone;
+
+            showPaymentNotification('direct');
+            // Validate address when switching to direct payment
+            validateInput(addressInput, patterns.address, errorMessages.address);
+          } else {
+            alert('Sản phẩm online chỉ hỗ trợ thanh toán qua chuyển khoản ngân hàng');
+            this.value = 'bank-transfer';
+            bankDetails.style.display = "block";
+            directPaymentInfo.style.display = "none";
+            updateAddressField('bank-transfer');
+            showPaymentNotification('bank-transfer');
+          }
+        }
+      });
+
+      // Show initial notification and update address field on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        updateAddressField(paymentMethod);
+        showPaymentNotification(paymentMethod);
+      });
+
+      // Form Validation
+      const form = document.querySelector('form');
+      const fullName = document.getElementById('fullName');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      const address = document.getElementById('address');
+
+      // Validation patterns
+      const patterns = {
+        fullName: /^[a-zA-ZÀ-ỹ\s]{2,50}$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        phone: /^[0-9]{10}$/,
+        address: /^.{10,200}$/
+      };
+
+      // Error messages
+      const errorMessages = {
+        fullName: 'Họ tên phải từ 2-50 ký tự và chỉ chứa chữ cái',
+        email: 'Email không hợp lệ',
+        phone: 'Số điện thoại phải có 10 chữ số',
+        address: 'Địa chỉ phải từ 10-200 ký tự'
+      };
+
+      // Add error message element
+      function addErrorElement(input) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message text-danger mt-1';
+        errorDiv.style.fontSize = '0.875rem';
+        input.parentNode.appendChild(errorDiv);
+        return errorDiv;
+      }
+
+      // Validate input
+      function validateInput(input, pattern, errorMessage) {
+        const errorDiv = input.parentNode.querySelector('.error-message') || addErrorElement(input);
+        
+        // Skip address validation if bank transfer is selected
+        if (input.id === 'address' && document.getElementById('paymentMethod').value === 'bank-transfer') {
+          input.classList.remove('is-invalid');
+          errorDiv.textContent = '';
+          return true;
+        }
+        
+        if (!pattern.test(input.value.trim())) {
+          input.classList.add('is-invalid');
+          errorDiv.textContent = errorMessage;
+          return false;
+        } else {
+          input.classList.remove('is-invalid');
+          errorDiv.textContent = '';
+          return true;
+        }
+      }
+
+      // Add real-time validation for all fields
+      fullName.addEventListener('input', function() {
+        validateInput(this, patterns.fullName, errorMessages.fullName);
+      });
+
+      email.addEventListener('input', function() {
+        validateInput(this, patterns.email, errorMessages.email);
+      });
+
+      phone.addEventListener('input', function() {
+        validateInput(this, patterns.phone, errorMessages.phone);
+      });
+
+      address.addEventListener('input', function() {
+        // Only validate address if direct payment is selected
+        if (document.getElementById('paymentMethod').value === 'direct') {
+          validateInput(this, patterns.address, errorMessages.address);
+        } else {
+          // Clear any existing validation for bank transfer
+          this.classList.remove('is-invalid');
+          const errorDiv = this.parentNode.querySelector('.error-message');
+          if (errorDiv) {
+            errorDiv.textContent = '';
+          }
+        }
+      });
+
+      // Add styles for validation
+      const style = document.createElement('style');
+      style.textContent = `
+        .is-invalid {
+          border-color: #dc3545 !important;
+          box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
+        .error-message {
+          color: #dc3545;
+          font-size: 0.875rem;
+          margin-top: 0.25rem;
+        }
+        .form-input:focus {
+          border-color: #80bdff;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .form-input.is-invalid:focus {
+          border-color: #dc3545;
+          box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Form submission validation
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let isValid = true;
+        const isOnline = hasOnlineProducts();
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        
+        // Validate all fields
+        isValid = validateInput(fullName, patterns.fullName, errorMessages.fullName) && isValid;
+        isValid = validateInput(email, patterns.email, errorMessages.email) && isValid;
+        isValid = validateInput(phone, patterns.phone, errorMessages.phone) && isValid;
+        
+        // Only validate address if direct payment method is selected and not online product
+        if (paymentMethod === 'direct' && !isOnline) {
+          isValid = validateInput(address, patterns.address, errorMessages.address) && isValid;
+        }
+
+        if (isValid) {
+          // If all validations pass, submit the form
+          this.submit();
+        } else {
+          // Scroll to first error
+          const firstError = document.querySelector('.is-invalid');
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
+
+      // Copy to clipboard function
+      function copyToClipboard(elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const text = element.textContent;
+        
+        // Create temporary input element
+        const input = document.createElement('input');
+        input.value = text;
+        document.body.appendChild(input);
+        
+        // Select and copy text
+        input.select();
+        document.execCommand('copy');
+        
+        // Remove temporary input
+        document.body.removeChild(input);
+
+        // Show copied feedback
+        const button = element.nextElementSibling;
+        if (button) {
+          const originalIcon = button.innerHTML;
+          button.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(() => {
+            button.innerHTML = originalIcon;
+          }, 2000);
+        }
+      }
+
+      // Update transfer content when phone number changes
+      document.getElementById('phone').addEventListener('input', function() {
+        const phone = this.value.trim();
+        if (document.getElementById('paymentMethod').value === 'bank-transfer') {
+          document.getElementById('transferContent').textContent = 
+            phone ? `THANHTOAN_${phone}` : 'THANHTOAN_[Số điện thoại của bạn]';
+        }
+      });
     </script>
   </body>
 </html>

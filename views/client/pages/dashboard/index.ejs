@@ -3,818 +3,324 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product List</title>
-    <link rel="stylesheet" href="/client/css/style.css" />
-    <link rel="stylesheet" href="/client/css/product.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" type="text/css" href="css/vendor.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
+    <title>Digital Marketplace - Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            opacity: 0.1;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+        .price-tag {
+            background: #1a1a1a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .collection-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+        }
+        .collection-content {
+            padding: 40px;
+        }
+        .newsletter-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            opacity: 0.1;
+        }
+        .btn-dark.rounded-circle {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .btn-dark.rounded-circle:hover {
+            transform: scale(1.1);
+            background: #000;
+        }
+    </style>
   </head>
   <body>
     <!-- Include header.ejs -->
     <%- include('../../partials/header.ejs') %>
 
-    <!-- Banner Section -->
-    <!-- <div class="banner">
-      <img
-        src="https://www.nike.com/vn/w/mens-gifting-shoes-l2wrznik1zy7ok"
-        alt="Banner"
-        class="img-fluid"
-      />
-    </div> -->
-
-    <!-- Product List -->
-    <section id="billboard" class="bg-light py-5">
-      <div class="container">
-        <div class="row justify-content-center">
-          <h1 class="section-title text-center mt-4" data-aos="fade-up">
-            Nike
-          </h1>
-          <div
-            class="col-md-6 text-center"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              voluptas ut dolorum consequuntur, adipisci repellat! Eveniet
-              commodi voluptatem voluptate, eum minima, in suscipit explicabo
-              voluptatibus harum, quibusdam ex repellat eaque!
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div
-            class="swiper main-swiper py-4"
-            data-aos="fade-up"
-            data-aos-delay="600"
-          >
-            <div class="swiper-wrapper d-flex border-animation-left">
-              <%products.forEach(product=>{%>
-              <div class="swiper-slide">
-                <div class="banner-item image-zoom-effect">
-                  <div class="image-holder">
-                    <a href="/product/detail/<%= product.slugProduct %>">
-                      <img
-                        src="<%= product.thumbnail %>"
-                        alt="<%= product.title %>"
-                        class="img-fluid"
-                      />
-                    </a>
-                  </div>
-                  <div class="banner-content py-4">
-                    <h5 class="element-title text-uppercase">
-                      <a
-                        href="/product/detail/<%= product.slugProduct %>"
-                        class="item-anchor"
-                        ><%= product.title %></a
-                      >
-                    </h5>
-                    <p>
-                      <%-product.description.replace(/<[^>]*>/g, '').slice(0,
-                      80) %>
-                    </p>
-                    <div class="btn-left">
-                      <a
-                        href="/product/detail/<%= product.slugProduct %>"
-                        class="btn-link fs-6 text-uppercase item-anchor text-decoration-none"
-                        >Discover Now</a
-                      >
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <h1 class="display-4 font-weight-bold mb-4">Welcome to Digital Marketplace</h1>
+                    <p class="lead mb-5">Discover our latest collection of premium products and stay updated with the latest news</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/product" class="btn btn-light btn-lg px-5 py-3 rounded-pill font-weight-bold">Shop Now</a>
+                        <a href="/news" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill font-weight-bold">Read News</a>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <%})%>
             </div>
-            <div class="swiper-pagination"></div>
-          </div>
-          <div class="icon-arrow icon-arrow-left">
-            <svg width="50" height="50" viewBox="0 0 24 24">
-              <use xlink:href="#arrow-left"></use>
-            </svg>
-          </div>
-          <div class="icon-arrow icon-arrow-right">
-            <svg width="50" height="50" viewBox="0 0 24 24">
-              <use xlink:href="#arrow-right"></use>
-            </svg>
-          </div>
         </div>
-      </div>
     </section>
 
-    <section class="features py-5">
-      <div class="container">
-        <div class="row">
-          <div
-            class="col-md-3 text-center"
-            data-aos="fade-in"
-            data-aos-delay="0"
-          >
-            <div class="py-5">
-              <svg width="38" height="38" viewBox="0 0 24 24">
-                <use xlink:href="#calendar"></use>
-              </svg>
-              <h4 class="element-title text-capitalize my-3">
-                Book An Appointment
-              </h4>
-              <p>
-                At imperdiet dui accumsan sit amet nulla risus est ultricies
-                quis.
-              </p>
+    <!-- Featured Products -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Featured Products</h2>
+            <div class="row">
+                <% products.forEach(product => { %>
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+                    <div class="product-card h-100 d-flex flex-column">
+                        <div class="position-relative">
+                            <img src="<%= product.thumbnail %>" alt="<%= product.title %>" class="product-image w-100">
+                            <span class="category-badge"><%= product.category %></span>
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <h3 class="h5 font-weight-bold mb-2"><%= product.title %></h3>
+                            <p class="text-muted mb-3 flex-grow-1"><%- product.description.replace(/<[^>]*>/g, '').slice(0, 100) %>...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="price-tag"><%= formatCurrency(product.price) %> VND</span>
+                                <a href="/product/detail/<%= product.slugProduct %>" class="btn btn-dark rounded-circle">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
             </div>
-          </div>
-          <div
-            class="col-md-3 text-center"
-            data-aos="fade-in"
-            data-aos-delay="300"
-          >
-            <div class="py-5">
-              <svg width="38" height="38" viewBox="0 0 24 24">
-                <use xlink:href="#shopping-bag"></use>
-              </svg>
-              <h4 class="element-title text-capitalize my-3">
-                Pick up in store
-              </h4>
-              <p>
-                At imperdiet dui accumsan sit amet nulla risus est ultricies
-                quis.
-              </p>
-            </div>
-          </div>
-          <div
-            class="col-md-3 text-center"
-            data-aos="fade-in"
-            data-aos-delay="600"
-          >
-            <div class="py-5">
-              <svg width="38" height="38" viewBox="0 0 24 24">
-                <use xlink:href="#gift"></use>
-              </svg>
-              <h4 class="element-title text-capitalize my-3">
-                Special packaging
-              </h4>
-              <p>
-                At imperdiet dui accumsan sit amet nulla risus est ultricies
-                quis.
-              </p>
-            </div>
-          </div>
-          <div
-            class="col-md-3 text-center"
-            data-aos="fade-in"
-            data-aos-delay="900"
-          >
-            <div class="py-5">
-              <svg width="38" height="38" viewBox="0 0 24 24">
-                <use xlink:href="#arrow-cycle"></use>
-              </svg>
-              <h4 class="element-title text-capitalize my-3">
-                free global returns
-              </h4>
-              <p>
-                At imperdiet dui accumsan sit amet nulla risus est ultricies
-                quis.
-              </p>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- <section class="categories overflow-hidden">
-      <div class="container">
-        <div class="open-up" data-aos="zoom-out">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="cat-item image-zoom-effect">
-                <div class="image-holder">
-                  <a href="index.html">
-                    <img
-                      src="images/cat-item1.jpg"
-                      alt="categories"
-                      class="product-image img-fluid"
-                    />
-                  </a>
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck fa-2x text-dark"></i>
+                        </div>
+                        <h3 class="h5 font-weight-bold mb-2">Free Shipping</h3>
+                        <p class="text-muted">On all orders over $100</p>
+                    </div>
                 </div>
-                <div class="category-content">
-                  <div class="product-button">
-                    <a href="index.html" class="btn btn-common text-uppercase"
-                      >Shop for men</a
-                    >
-                  </div>
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo fa-2x text-dark"></i>
+                        </div>
+                        <h3 class="h5 font-weight-bold mb-2">Easy Returns</h3>
+                        <p class="text-muted">30 days return policy</p>
+                    </div>
                 </div>
-              </div>
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock fa-2x text-dark"></i>
+                        </div>
+                        <h3 class="h5 font-weight-bold mb-2">Secure Payment</h3>
+                        <p class="text-muted">100% secure payment</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset fa-2x text-dark"></i>
+                        </div>
+                        <h3 class="h5 font-weight-bold mb-2">24/7 Support</h3>
+                        <p class="text-muted">Dedicated support team</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-              <div class="cat-item image-zoom-effect">
-                <div class="image-holder">
-                  <a href="index.html">
-                    <img
-                      src="images/cat-item2.jpg"
-                      alt="categories"
-                      class="product-image img-fluid"
-                    />
-                  </a>
-                </div>
-                <div class="category-content">
-                  <div class="product-button">
-                    <a href="index.html" class="btn btn-common text-uppercase"
-                      >Shop for women</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="cat-item image-zoom-effect">
-                <div class="image-holder">
-                  <a href="index.html">
-                    <img
-                      src="images/cat-item3.jpg"
-                      alt="categories"
-                      class="product-image img-fluid"
-                    />
-                  </a>
-                </div>
-                <div class="category-content">
-                  <div class="product-button">
-                    <a href="index.html" class="btn btn-common text-uppercase"
-                      >Shop accessories</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section> -->
-
-    <section
-      id="new-arrival"
-      class="new-arrival product-carousel py-5 position-relative overflow-hidden"
-    >
-      <div class="container">
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"
-        >
-          <h4 class="text-uppercase">Our New Arrivals</h4>
-          <a href="/category/new-and-featured" class="btn-link"
-            >View All Products</a
-          >
-        </div>
-        <div class="swiper product-swiper open-up" data-aos="zoom-out">
-          <div class="swiper-wrapper d-flex">
-            <% newProducts.forEach(product=>{%>
-            <div class="swiper-slide">
-              <div class="product-item image-zoom-effect link-effect">
-                <div class="image-holder position-relative">
-                  <a href="/product/detail/<%= product.slugProduct %>">
-                    <img
-                      src="<%= product.thumbnail %>"
-                      alt="categories"
-                      class="product-image img-fluid"
-                    />
-                  </a>
-                  <a href="index.html" class="btn-icon btn-wishlist">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <use xlink:href="#heart"></use>
-                    </svg>
-                  </a>
-                  <div class="product-content">
-                    <h5
-                      class="element-title text-uppercase fs-5 mt-3 text-dark"
-                    >
-                      <a
-                        href="/product/detail/<%= product.slugProduct %>"
-                        class="text-decoration-none text-dark"
-                        ><%= product.title %></a
-                      >
-                    </h5>
-                    <a
-                      href="/cart/order/<%= product._id %>"
-                      class="text-decoration-none"
-                      data-after="Add to cart"
-                      ><span
-                        ><%= `${formatCurrency(product.price)} VND` %></span
-                      ></a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <%})%>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-        <div class="icon-arrow icon-arrow-left">
-          <svg width="50" height="50" viewBox="0 0 24 24">
-            <use xlink:href="#arrow-left"></use>
-          </svg>
-        </div>
-        <div class="icon-arrow icon-arrow-right">
-          <svg width="50" height="50" viewBox="0 0 24 24">
-            <use xlink:href="#arrow-right"></use>
-          </svg>
-        </div>
-      </div>
     </section>
 
-    <section class="collection bg-light position-relative py-5">
-      <div class="container">
-        <div class="row">
-          <div class="title-xlarge text-uppercase txt-fx domino">
-            Collection
-          </div>
-          <div class="collection-item d-flex flex-wrap my-5">
-            <div class="col-md-6 column-container">
-              <div class="image-holder">
-                <img
-                  src="https://res.cloudinary.com/duvcqk5av/image/upload/v1734955099/imgnjke.jpg"
-                  alt="collection"
-                  class="product-image img-fluid"
-                />
-              </div>
-            </div>
-            <div class="col-md-6 column-container bg-white">
-              <div class="collection-content p-5 m-0 m-md-5">
-                <h3 class="element-title text-uppercase">
-                  Classic winter collection
-                </h3>
-                <p>
-                  Dignissim lacus, turpis ut suspendisse vel tellus. Turpis
-                  purus, gravida orci, fringilla a. Ac sed eu fringilla odio mi.
-                  Consequat pharetra at magna imperdiet cursus ac faucibus sit
-                  libero. Ultricies quam nunc, lorem sit lorem urna, pretium
-                  aliquam ut. In vel, quis donec dolor id in. Pulvinar commodo
-                  mollis diam sed facilisis at cursus imperdiet cursus ac
-                  faucibus sit faucibus sit libero.
-                </p>
-                <a
-                  href="/category/new-and-featured"
-                  class="btn btn-dark text-uppercase mt-3"
-                  >Shop Collection</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="best-sellers"
-      class="best-sellers product-carousel py-5 position-relative overflow-hidden"
-    >
-      <div class="container">
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"
-        >
-          <h4 class="text-uppercase">Best Selling Items</h4>
-          <a href="/category/new-and-featured" class="btn-link"
-            >View All Products</a
-          >
-        </div>
-        <div class="swiper product-swiper open-up" data-aos="zoom-out">
-          <div class="swiper-wrapper d-flex">
-            <% products.forEach(product=>{%>
-            <div class="swiper-slide">
-              <div class="product-item image-zoom-effect link-effect">
-                <div class="image-holder position-relative">
-                  <a href="/product/detail/<%= product.slugProduct %>">
-                    <img
-                      src="<%= product.thumbnail %>"
-                      alt="categories"
-                      class="product-image img-fluid"
-                    />
-                  </a>
-                  <a href="index.html" class="btn-icon btn-wishlist">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <use xlink:href="#heart"></use>
-                    </svg>
-                  </a>
-                  <div class="product-content">
-                    <h5
-                      class="element-title text-uppercase fs-5 mt-3 text-dark"
-                    >
-                      <a
-                        href="/product/detail/<%= product.slugProduct %>"
-                        class="text-decoration-none text-dark"
-                        ><%= product.title %></a
-                      >
-                    </h5>
-                    <a
-                      href="/cart/order/<%= product._id %>"
-                      class="text-decoration-none"
-                      data-after="Add to cart"
-                      ><span
-                        ><%= `${formatCurrency(product.price)} VND` %></span
-                      ></a
-                    >
-                  </div>
+    <!-- Collection Section -->
+    <section class="collection-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                         alt="Collection" 
+                         class="img-fluid rounded shadow">
                 </div>
-              </div>
-            </div>
-            <%})%>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-        <div class="icon-arrow icon-arrow-left">
-          <svg width="50" height="50" viewBox="0 0 24 24">
-            <use xlink:href="#arrow-left"></use>
-          </svg>
-        </div>
-        <div class="icon-arrow icon-arrow-right">
-          <svg width="50" height="50" viewBox="0 0 24 24">
-            <use xlink:href="#arrow-right"></use>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <section class="video py-5 overflow-hidden">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="video-content open-up" data-aos="zoom-out">
-            <div class="video-bg">
-              <img
-                src="https://media.architecturaldigest.com/photos/57a11cbeb6c434ab487bc26b/16:9/w_1280,c_limit/nikes-senior-designer-explains-what-went-into-new-air-jordan-01.png"
-                alt="video"
-                class="video-image img-fluid"
-                width="100%"
-                height="auto"
-              />
-            </div>
-            <div class="video-player">
-              <a
-                class="youtube"
-                href="https://www.youtube.com/embed/pjtsGzQjFM4"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                  <use xlink:href="#play"></use>
-                </svg>
-                <img
-                  src="images/text-pattern.png"
-                  alt="pattern"
-                  class="text-rotate"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="testimonials py-5 bg-light">
-      <div class="section-header text-center mt-5">
-        <h3 class="section-title">WE LOVE GOOD COMPLIMENT</h3>
-      </div>
-      <div class="swiper testimonial-swiper overflow-hidden my-5">
-        <div class="swiper-wrapper d-flex">
-          <div class="swiper-slide">
-            <div class="testimonial-item text-center">
-              <blockquote>
-                <p>
-                  “More than expected crazy soft, flexible and best fitted white
-                  simple denim shirt.”
-                </p>
-                <div class="review-title text-uppercase">casual way</div>
-              </blockquote>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-item text-center">
-              <blockquote>
-                <p>
-                  “Best fitted white denim shirt more than expected crazy soft,
-                  flexible
-                </p>
-                <div class="review-title text-uppercase">uptop</div>
-              </blockquote>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-item text-center">
-              <blockquote>
-                <p>
-                  “Best fitted white denim shirt more white denim than expected
-                  flexible crazy soft.”
-                </p>
-                <div class="review-title text-uppercase">Denim craze</div>
-              </blockquote>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-item text-center">
-              <blockquote>
-                <p>
-                  “Best fitted white denim shirt more than expected crazy soft,
-                  flexible
-                </p>
-                <div class="review-title text-uppercase">uptop</div>
-              </blockquote>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="testimonial-swiper-pagination d-flex justify-content-center mb-5"
-      ></div>
-    </section>
-
-    <section
-      id="related-products"
-      class="related-products product-carousel py-5 position-relative overflow-hidden"
-    >
-      <div class="container">
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"
-        >
-          <h4 class="text-uppercase">You May Also Like</h4>
-          <a href="/category/new-and-featured" class="btn-link"
-            >View All Products</a
-          >
-        </div>
-        <div class="swiper product-swiper open-up" data-aos="zoom-out">
-          <div class="swiper-wrapper d-flex">
-            <% products.forEach(product=>{%>
-            <div class="swiper-slide">
-              <div class="product-item image-zoom-effect link-effect">
-                <div class="image-holder position-relative">
-                  <a href="/product/detail/<%= product.slugProduct %>">
-                    <img
-                      src="<%= product.thumbnail %>"
-                      alt="categories"
-                      class="product-image img-fluid"
-                    />
-                  </a>
-                  <a href="index.html" class="btn-icon btn-wishlist">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                      <use xlink:href="#heart"></use>
-                    </svg>
-                  </a>
-                  <div class="product-content">
-                    <h5
-                      class="element-title text-uppercase fs-5 mt-3 text-dark"
-                    >
-                      <a
-                        href="/product/detail/<%= product.slugProduct %>"
-                        class="text-decoration-none text-dark"
-                        ><%= product.title %></a
-                      >
-                    </h5>
-                    <a
-                      href="/cart/order/<%= product._id %>"
-                      class="text-decoration-none"
-                      data-after="Add to cart"
-                      ><span
-                        ><%= `${formatCurrency(product.price)} VND` %></span
-                      ></a
-                    >
-                  </div>
+                <div class="col-md-6" data-aos="fade-left">
+                    <div class="collection-content">
+                        <h2 class="display-4 font-weight-bold mb-4">New Collection</h2>
+                        <p class="lead mb-4">
+                            Discover our latest collection of premium products. Each item is carefully selected to provide the best quality and style.
+                        </p>
+                        <a href="/category/new-and-featured" 
+                           class="btn btn-dark btn-lg px-5 py-3 rounded-pill font-weight-bold">
+                            Shop Collection
+                        </a>
+                    </div>
                 </div>
-              </div>
             </div>
-            <%})%>
-          </div>
-          <div class="swiper-pagination"></div>
         </div>
-        <div class="icon-arrow icon-arrow-left">
-          <svg width="50" height="50" viewBox="0 0 24 24">
-            <use xlink:href="#arrow-left"></use>
-          </svg>
-        </div>
-        <div class="icon-arrow icon-arrow-right">
-          <svg width="50" height="50" viewBox="0 0 24 24">
-            <use xlink:href="#arrow-right"></use>
-          </svg>
-        </div>
-      </div>
     </section>
 
-    <section class="blog py-5">
-      <div class="container">
-        <div
-          class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"
-        >
-          <h4 class="text-uppercase">Read Blog Posts</h4>
-          <a href="/news" class="btn-link">View All</a>
-        </div>
-        <div class="row">
-          <%news.forEach(item=>{%>
-          <div class="col-md-4">
-            <article class="post-item">
-              <div class="post-image">
-                <a href="/news/<%=item.slugNews%>">
-                  <img
-                    src="<%= item.thumbnail%>"
-                    alt="image"
-                    class="post-grid-image img-fluid"
-                  />
-                </a>
-              </div>
-              <div class="post-content d-flex flex-wrap gap-2 my-3">
-                <div class="post-meta text-uppercase fs-6 text-secondary">
-                  <span class="post-category">Fashion /</span>
-                  <span class="meta-day"
-                    ><%=item.createdAt.toLocaleString()%></span
-                  >
+    <!-- Latest News -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Latest News</h2>
+            <div class="row">
+                <% news.forEach(item => { %>
+                <div class="col-md-4 mb-4" data-aos="fade-up">
+                    <div class="card border-0 shadow-sm">
+                        <img src="<%= item.thumbnail %>" alt="<%= item.title %>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <small class="text-muted d-block mb-2">
+                                <%= item.createdAt.toLocaleString() %>
+                            </small>
+                            <h3 class="h5 font-weight-bold mb-2">
+                                <a href="/news/<%= item.slugNews %>" class="text-dark">
+                                    <%= item.title %>
+                                </a>
+                            </h3>
+                            <p class="text-muted mb-3">
+                                <%- item.description.replace(/<[^>]*>/g, '').slice(0, 150) %>...
+                            </p>
+                            <a href="/news/<%= item.slugNews %>" 
+                               class="text-dark font-weight-bold">
+                                Read More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="post-title text-uppercase">
-                  <a href="/news/<%=item.slugNews%>"><%=item.title%></a>
-                </h5>
-                <p>
-                  <%-item.description.replace(/<[^>]*>/g, '').slice(0, 150)%>
-                </p>
-              </div>
-            </article>
-          </div>
-          <%})%>
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="newsletter bg-light"
-      style="background: url(images/pattern-bg.png) no-repeat"
-    >
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 py-5 my-5">
-            <div class="subscribe-header text-center pb-3">
-              <h3 class="section-title text-uppercase">
-                Sign Up for our newsletter
-              </h3>
+                <% }) %>
             </div>
-            <form id="form" class="d-flex flex-wrap gap-2">
-              <input
-                type="text"
-                name="email"
-                placeholder="Your Email Addresss"
-                class="form-control form-control-lg"
-              />
-              <button class="btn btn-dark btn-lg text-uppercase w-100">
-                Sign Up
-              </button>
-            </form>
-          </div>
         </div>
-      </div>
     </section>
 
-    <section class="instagram position-relative">
-      <div
-        class="d-flex justify-content-center w-100 position-absolute bottom-0 z-1"
-      >
-        <a
-          href="https://github.com/dinhnhukhai"
-          target="_blank"
-          class="btn btn-dark px-5"
-          >Follow me on Github</a
-        >
-      </div>
-      <div class="row g-0">
-        <div class="col-6 col-sm-4 col-md-2">
-          <div class="insta-item">
-            <a href="https://github.com/dinhnhukhai" target="_blank">
-              <img
-                src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/91aefeeb-0efb-4387-b516-5fc4d9ed5709/WMNS+AIR+JORDAN+1+LOW.png"
-                alt="instagram"
-                class="insta-image img-fluid"
-              />
-            </a>
-          </div>
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <h2 class="display-4 font-weight-bold mb-4">Subscribe to Our Newsletter</h2>
+                    <p class="lead mb-5">Stay updated with our latest products and news</p>
+                    <form class="row justify-content-center">
+                        <div class="col-md-8 mb-3 mb-md-0">
+                            <input type="email" 
+                                   placeholder="Enter your email" 
+                                   class="form-control form-control-lg rounded-pill">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" 
+                                    class="btn btn-light btn-lg w-100 rounded-pill font-weight-bold">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-6 col-sm-4 col-md-2">
-          <div class="insta-item">
-            <a href="https://github.com/dinhnhukhai" target="_blank">
-              <img
-                src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/046bd8d5-c1c4-41dd-9346-74748a7b73a6/WMNS+AIR+JORDAN+1+MID.png"
-                alt="instagram"
-                class="insta-image img-fluid"
-              />
-            </a>
-          </div>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2">
-          <div class="insta-item">
-            <a href="https://github.com/dinhnhukhai" target="_blank">
-              <img
-                src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/980a3ae1-c491-4ae2-8e73-aa8ba00afe2d/AIR+JORDAN+1+LOW+SE+BG.png"
-                alt="instagram"
-                class="insta-image img-fluid"
-              />
-            </a>
-          </div>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2">
-          <div class="insta-item">
-            <a href="https://github.com/dinhnhukhai" target="_blank">
-              <img
-                src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3449630a-01af-414b-917c-c023ff60a462/AIR+JORDAN+1+HIGH+G.png"
-                alt="instagram"
-                class="insta-image img-fluid"
-              />
-            </a>
-          </div>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2">
-          <div class="insta-item">
-            <a href="https://github.com/dinhnhukhai" target="_blank">
-              <img
-                src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b0aecb4c-3e97-4080-a944-dcbd89af7ee7/WMNS+AIR+JORDAN+1+RETRO+HI+OG.png"
-                alt="instagram"
-                class="insta-image img-fluid"
-              />
-            </a>
-          </div>
-        </div>
-        <div class="col-6 col-sm-4 col-md-2">
-          <div class="insta-item">
-            <a href="https://github.com/dinhnhukhai" target="_blank">
-              <img
-                src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/cd9a47bf-aa7b-43fc-a6ae-c3350d01696f/AIR+JORDAN+1+LOW+SE+%28GS%29.png"
-                alt="instagram"
-                class="insta-image img-fluid"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
     </section>
+
     <!-- Include footer.ejs -->
     <%- include('../../partials/footer.ejs') %>
 
     <!-- Scripts -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/SmoothScroll.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="js/script.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      const user = message;
-      console.log(user || "");
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
     </script>
   </body>
 </html>

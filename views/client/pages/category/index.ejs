@@ -3,164 +3,609 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product List</title>
-    <link rel="stylesheet" href="/client/css/style.css" />
-    <link rel="stylesheet" href="/client/css/product.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      integrity="sha384-dyB9eP3R+QQxUlsb8zP38VjwEotR4NYfv5yHbs8JfZj63S1Xc4HKk19SAk9g8sfT"
-      crossorigin="anonymous"
-    />
+    <title><%= currentCategory.title %> | Digital Marketplace</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-      #toggleFilters {
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f8f9fa;
+      }
+      .category-hero {
+        background: #000;
+        padding: 5rem 0;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 3rem;
+      }
+      .category-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.1;
+      }
+      .category-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+      }
+      .category-description {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+        font-weight: 500;
+      }
+      .category-stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin-top: 3rem;
+      }
+      .stat-item {
+        text-align: center;
+        color: white;
+      }
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(45deg, #ffffff, #f1f1f1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .stat-label {
+        font-size: 1rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+      .filter-sidebar {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        position: sticky;
+        top: 2rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .filter-sidebar h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #2d3436;
+        }
+      .filter-sidebar h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #2d3436;
+      }
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        position: relative;
+        margin-bottom: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        height: 100%;
+      }
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      }
+      .product-image {
+        height: 320px;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+      .product-card:hover .product-image {
+        transform: scale(1.08);
+      }
+      .product-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+      }
+      .product-card:hover .product-overlay {
+        opacity: 1;
+      }
+      .product-overlay .btn {
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.4s ease;
+        padding: 12px 30px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-radius: 30px;
+        background: white;
+        color: #000;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .product-card:hover .product-overlay .btn {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .product-overlay .btn:hover {
+        background: #000;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+      .product-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #000;
+        color: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        z-index: 10;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .product-badge.bg-danger {
+        background: #dc3545;
+      }
+      .product-content {
+        padding: 1.5rem;
+        background: white;
+        position: relative;
+        z-index: 1;
+      }
+      .product-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #2d3436;
+        line-height: 1.4;
+        height: 3.1em;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .product-price {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 0.75rem;
+      }
+      .product-discount {
+        font-size: 1rem;
+        color: #636e72;
+        text-decoration: line-through;
+        margin-right: 0.5rem;
+      }
+      .product-stock {
+        font-size: 0.9rem;
+        color: #636e72;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .product-stock i {
+        font-size: 1rem;
+        color: #00b894;
+      }
+      .form-control {
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+      .form-control:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+      }
+      .btn-dark {
+        background: #000;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .btn-dark:hover {
+        background: #2d3436;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .pagination {
+        margin-top: 3rem;
+      }
+      .pagination .page-link {
+        color: #000;
+        border: 2px solid #000;
+        margin: 0 5px;
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .pagination .page-link:hover,
+      .pagination .page-item.active .page-link {
+        background: #000;
+        color: white;
+        border-color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .search-box {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+      .search-input {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        padding-right: 4rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      .search-input:focus {
+        outline: none;
+        border-color: #000;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+      }
+      .search-button {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #000;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
+        transition: all 0.3s ease;
       }
-      #toggleFilters i {
-        font-size: 16px;
+      .search-button:hover {
+        background: #2d3436;
+        transform: translateY(-50%) scale(1.05);
       }
-      .filter-card {
-        display: block; /* Mặc định hiển thị bộ lọc */
+      .search-button i {
+        color: white;
+        font-size: 1.2rem;
+      }
+      .price-range {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .price-range input {
+        flex: 1;
+      }
+      .price-range span {
+        color: #636e72;
+        font-weight: 500;
+      }
+      .stats-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .stats-card h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #2d3436;
+      }
+      .stats-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .stats-label {
+        font-size: 0.9rem;
+        color: #636e72;
+        margin-top: 0.25rem;
+      }
+      @media (max-width: 768px) {
+        .category-title {
+          font-size: 2.5rem;
+        }
+        .category-description {
+          font-size: 1rem;
+          padding: 0 1rem;
+        }
+        .category-stats {
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .stat-number {
+          font-size: 2rem;
+        }
+        .stats-value {
+          font-size: 1.2rem;
+        }
+        .product-card {
+          margin-bottom: 20px;
+        }
+        .product-image {
+          height: 250px;
+        }
+        .filter-sidebar {
+          margin-bottom: 2rem;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Include header.ejs -->
     <%- include('../../partials/header.ejs') %>
 
-    <!-- Banner Section -->
-    <% if (products.length > 0) { %> <% let product = products[0]; let
-    selectedCategory = category.find(item => item._id.toString() ===
-    product.category_id.toString()); %> <% if (selectedCategory) { %>
-    <section class="category-hero py-4 text-center">
+    <!-- Category Hero Section -->
+    <section class="category-hero">
       <div class="container">
-        <h2 class="category-title display-6 fw-bold">
-          Welcome to the
-          <span class="text-highlight"><%= selectedCategory.title %></span>
-          Collection
-        </h2>
-      </div>
-    </section>
-    <% } %> <% } %>
-
-    <!-- Filter and Sort -->
-    <div class="container mt-4">
-      <div class="row justify-content-end">
-        <div class="col-auto d-flex align-items-center">
-          <!-- Hide Filters Button -->
-          <button
-            id="toggleFilters"
-            class="btn btn-link text-dark d-flex align-items-center"
-          >
-            <span>Hide Filters</span>
-            <i class="ml-1 fas fa-sliders-h"></i>
-          </button>
-
-          <!-- Sort By Dropdown -->
-          <div class="dropdown ml-3">
-            <button
-              class="btn btn-link text-dark dropdown-toggle"
-              type="button"
-              id="sortByDropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Sort By
-            </button>
-            <div
-              class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="sortByDropdown"
-            >
-              <a class="dropdown-item" href="?sort=price-asc"
-                >Price: Low to High</a
-              >
-              <a class="dropdown-item" href="?sort=price-desc"
-                >Price: High to Low</a
-              >
-              <a class="dropdown-item" href="?sort=title-asc">Name: A-Z</a>
-              <a class="dropdown-item" href="?sort=title-desc">Name: Z-A</a>
-              <a class="dropdown-item" href="?sort=position-desc">Newest</a>
-              <a class="dropdown-item" href="?sort=position-asc">Oldest</a>
+        <div class="text-center">
+          <h1 class="category-title"><%= currentCategory.title %></h1>
+          <p class="category-description">
+            <%= currentCategory.description || 'Discover our curated collection of premium products, featuring the latest trends and timeless classics.' %>
+          </p>
+          <div class="category-stats">
+            <div class="stat-item">
+              <div class="stat-number"><%= stats.totalProducts %></div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><%= stats.inStock %></div>
+              <div class="stat-label">In Stock</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><%= formatCurrency(stats.averagePrice) %></div>
+              <div class="stat-label">Avg. Price</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Product List -->
-    <div class="container mt-5">
+    <!-- Main Content -->
+    <div class="container">
       <div class="row">
-        <% products.forEach(product => { %>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-          <a
-            href="/product/detail/<%= product.slugProduct %>"
-            class="text-decoration-none"
-          >
-            <div class="product-card card">
-              <img
-                src="<%= product.thumbnail %>"
-                alt="<%= product.title %>"
-                class="product-thumbnail card-img-top"
-              />
-              <div class="card-body">
-                <h5 class="card-title product-title"><%= product.title %></h5>
-                <div class="product-price">
-                  <%= formatCurrency((product.price * (1 -
-                  product.discountPercentage / 100))) %> VND
-                  <p class="product-discount text-muted">
-                    <%= formatCurrency(product.price) %> VND
-                  </p>
+        <!-- Filter Sidebar -->
+        <div class="col-lg-3">
+          <div class="filter-sidebar">
+            <h2>Filters</h2>
+            <form action="/category/<%= currentCategory.slug %>" method="GET" id="filterForm">
+              <!-- Search -->
+              <div class="search-box">
+                <input type="text" 
+                       name="search" 
+                       class="search-input" 
+                       placeholder="Search products..."
+                       value="<%= filters.search || '' %>">
+                <button type="submit" class="search-button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+
+              <!-- Price Range -->
+              <div class="mb-4">
+                <h3>Price Range</h3>
+                <div class="price-range">
+                  <input type="number" 
+                         name="minPrice" 
+                         class="form-control" 
+                         placeholder="Min"
+                         value="<%= filters.minPrice || '' %>">
+                  <span>-</span>
+                  <input type="number" 
+                         name="maxPrice" 
+                         class="form-control" 
+                         placeholder="Max"
+                         value="<%= filters.maxPrice || '' %>">
                 </div>
-                <div class="product-stock mb-2">
-                  <small>Stock: <%= product.quantity %></small>
+              </div>
+
+              <!-- Sort -->
+              <div class="mb-4">
+                <h3>Sort By</h3>
+                <select name="sort" class="form-control">
+                  <option value="newest" <%= filters.sort === 'newest' ? 'selected' : '' %>>Newest First</option>
+                  <option value="price-asc" <%= filters.sort === 'price-asc' ? 'selected' : '' %>>Price: Low to High</option>
+                  <option value="price-desc" <%= filters.sort === 'price-desc' ? 'selected' : '' %>>Price: High to Low</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-dark btn-block">
+                Apply Filters
+              </button>
+            </form>
+
+            <!-- Category Stats -->
+            <div class="stats-card mt-4">
+              <h4>Category Statistics</h4>
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <div class="stats-value" title="<%= formatCurrency(stats.minPrice) %>">
+                    <%= formatCurrency(stats.minPrice) %>
+                  </div>
+                  <div class="stats-label">Min Price</div>
+                </div>
+                <div class="col-6 mb-3">
+                  <div class="stats-value" title="<%= formatCurrency(stats.maxPrice) %>">
+                    <%= formatCurrency(stats.maxPrice) %>
+                  </div>
+                  <div class="stats-label">Max Price</div>
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
-        <% }); %>
+
+        <!-- Products Grid -->
+        <div class="col-lg-9">
+          <!-- Results Header -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h4 mb-0">All Products</h2>
+            <div class="text-muted">
+              Showing <%= products.length %> of <%= pagination.total %> products
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="row">
+            <% if (products.length > 0) { %>
+              <% products.forEach(product => { %>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                  <div class="product-card">
+                    <% if (product.quantity > 0) { %>
+                      <div class="product-badge">In Stock</div>
+                    <% } else { %>
+                      <div class="product-badge bg-danger">Out of Stock</div>
+                    <% } %>
+                    <a href="/product/detail/<%= product.slugProduct %>">
+                      <img src="<%= product.thumbnail %>" 
+                           alt="<%= product.title %>" 
+                           class="product-image w-100">
+                      <div class="product-overlay">
+                        <button class="btn">
+                          View Details
+                        </button>
+                      </div>
+                      <div class="product-content">
+                        <h3 class="product-title"><%= product.title %></h3>
+                        <div class="product-price">
+                          <% if (product.discountPercentage) { %>
+                            <span class="product-discount"><%= product.price %></span>
+                            <%= product.discountedPrice %>
+                          <% } else { %>
+                            <%= product.price %>
+                          <% } %>
+                        </div>
+                        <div class="product-stock">
+                          <i class="fas fa-box"></i>
+                          <%= product.quantity %> units available
+                        </div>
+                      </div>
+                    </a>
+                    </div>
+                </div>
+              <% }); %>
+            <% } else { %>
+              <div class="col-12 text-center py-5">
+                <h4>No Products Found</h4>
+                <p class="text-muted">Try adjusting your filters</p>
+              </div>
+            <% } %>
+          </div>
+
+          <!-- Pagination -->
+          <% if (pagination.totalPages > 1) { %>
+            <nav aria-label="Page navigation" class="mt-4">
+              <ul class="pagination justify-content-center">
+                <% if (pagination.page > 1) { %>
+                  <li class="page-item">
+                    <a class="page-link" 
+                       href="?page=<%= pagination.page - 1 %>&sort=<%= filters.sort %>&minPrice=<%= filters.minPrice || '' %>&maxPrice=<%= filters.maxPrice || '' %>&search=<%= filters.search || '' %>">
+                      Previous
+                    </a>
+                  </li>
+                <% } %>
+                
+                <% for(let i = 1; i <= pagination.totalPages; i++) { %>
+                  <li class="page-item <%= i === pagination.page ? 'active' : '' %>">
+                    <a class="page-link" 
+                       href="?page=<%= i %>&sort=<%= filters.sort %>&minPrice=<%= filters.minPrice || '' %>&maxPrice=<%= filters.maxPrice || '' %>&search=<%= filters.search || '' %>">
+                      <%= i %>
+                    </a>
+                  </li>
+                <% } %>
+
+                <% if (pagination.page < pagination.totalPages) { %>
+                  <li class="page-item">
+                    <a class="page-link" 
+                       href="?page=<%= pagination.page + 1 %>&sort=<%= filters.sort %>&minPrice=<%= filters.minPrice || '' %>&maxPrice=<%= filters.maxPrice || '' %>&search=<%= filters.search || '' %>">
+                      Next
+                    </a>
+                  </li>
+                <% } %>
+              </ul>
+            </nav>
+          <% } %>
+        </div>
       </div>
     </div>
 
-    <!-- Include footer.ejs -->
     <%- include('../../partials/footer.ejs') %>
 
     <!-- Scripts -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      document
-        .getElementById("toggleFilters")
-        .addEventListener("click", function () {
-          const filterSection = document.querySelector(".filter-card");
-          if (filterSection) {
-            filterSection.classList.toggle("d-none");
-            this.querySelector("span").textContent =
-              filterSection.classList.contains("d-none")
-                ? "Show Filters"
-                : "Hide Filters";
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+
+      // Filter form handling
+      const filterForm = document.getElementById('filterForm');
+      if (filterForm) {
+        filterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const formData = new FormData(filterForm);
+          const params = new URLSearchParams();
+          
+          for (let [key, value] of formData.entries()) {
+            if (value) {
+              params.append(key, value);
+            }
           }
+          
+          window.location.href = `/category/<%= currentCategory.slug %>?${params.toString()}`;
         });
+      }
     </script>
   </body>
 </html>

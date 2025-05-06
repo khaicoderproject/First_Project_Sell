@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Now - Digital Marketplace</title>
+    <!-- Modern CSS Framework -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .product-card a,
+        .product-card a:hover,
+        .product-card a:focus,
+        .product-card a:active,
+        .product-card a:visited {
+            text-decoration: none !important;
+            color: inherit;
+            display: block;
+        }
+        .product-image {
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+        .filter-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+        }
+        .price-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            outline: none;
+        }
+        .price-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .price-range::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        .pagination-link {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid #000;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .pagination-link:hover {
+            background: #000;
+            color: white;
+        }
+        .pagination-link.active {
+            background: #000;
+            color: white;
+        }
+        .category-checkbox {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .category-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: #f8f9fa;
+            border: 2px solid #000;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .category-checkbox:hover input ~ .checkmark {
+            background-color: #f8f9fa;
+        }
+        .category-checkbox input:checked ~ .checkmark {
+            background-color: #000;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .category-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .category-checkbox .checkmark:after {
+            left: 8px;
+            top: 4px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .sort-select {
+            background: #f8f9fa;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            font-size: 0.95rem;
+            color: #000;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .sort-select:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        .filter-button {
+            background: #000;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .filter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .shop-header {
+            background: #000;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .shop-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        .shop-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        .shop-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+        .shop-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .shop-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        .shop-search {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            padding-right: 4rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-button:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .search-button i {
+            color: #000;
+            font-size: 1.2rem;
+        }
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(20px, 20px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #000;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .product-badge.bg-red-500 {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../../partials/header.ejs') %>
+
+    <!-- Shop Header -->
+    <div class="shop-header">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container mx-auto px-4">
+            <div class="shop-header-content text-center">
+                <h1 class="shop-title">Discover Our Collection</h1>
+                <p class="shop-subtitle">Explore our curated selection of premium products, carefully chosen to enhance your lifestyle and meet your needs.</p>
+                
+                <div class="shop-search">
+                    <input type="text" 
+                           class="search-input" 
+                           placeholder="Search for products..."
+                           id="searchInput">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="shop-stats">
+                    <div class="stat-item">
+                        <div class="stat-number"><%= pagination.total %></div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number"><%= categories.length %></div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Filter Sidebar -->
+                <div class="filter-sidebar lg:col-span-1">
+                    <h2 class="text-2xl font-bold mb-8 text-gray-800">Filters</h2>
+                    
+                    <form action="/product" method="GET" id="filterForm">
+                        <!-- Categories -->
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 text-gray-700">Categories</h3>
+                            <div class="space-y-3">
+                                <% categories.forEach(cat => { %>
+                                <label class="category-checkbox">
+                                    <%= cat.title %>
+                                    <input type="radio" 
+                                           name="category" 
+                                           value="<%= cat.slug %>"
+                                           <%= filters.category === cat.slug ? 'checked' : '' %>>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <% }) %>
+                            </div>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 text-gray-700">Price Range</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-2">Minimum Price</label>
+                                    <input type="number" 
+                                           name="minPrice" 
+                                           min="0" 
+                                           max="10000000" 
+                                           step="100000"
+                                           value="<%= filters.minPrice || 0 %>"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-2">Maximum Price</label>
+                                    <input type="number" 
+                                           name="maxPrice" 
+                                           min="0" 
+                                           max="10000000" 
+                                           step="100000"
+                                           value="<%= filters.maxPrice || 10000000 %>"
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sort -->
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 text-gray-700">Sort By</h3>
+                            <select name="sort" class="sort-select">
+                                <option value="newest" <%= filters.sort === 'newest' ? 'selected' : '' %>>Newest First</option>
+                                <option value="price-asc" <%= filters.sort === 'price-asc' ? 'selected' : '' %>>Price: Low to High</option>
+                                <option value="price-desc" <%= filters.sort === 'price-desc' ? 'selected' : '' %>>Price: High to Low</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="filter-button w-full">
+                            Apply Filters
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="lg:col-span-3">
+                    <!-- Results Header -->
+                    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+                        <h2 class="text-2xl font-bold text-gray-800">All Products</h2>
+                        <div class="text-gray-600 bg-white px-4 py-2 rounded-full shadow-sm">
+                            Showing <%= products.length %> of <%= pagination.total %> products
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <% products.forEach(product => { %>
+                        <div class="product-card" data-aos="fade-up">
+                            <% if (product.quantity > 0) { %>
+                            <div class="product-badge">In Stock</div>
+                            <% } else { %>
+                            <div class="product-badge bg-red-500">Out of Stock</div>
+                            <% } %>
+                            <a href="/product/detail/<%= product.slugProduct %>" style="text-decoration: none;">
+                                <img src="<%= product.thumbnail %>" 
+                                     alt="<%= product.title %>" 
+                                     class="product-image w-full">
+                                <div class="product-overlay">
+                                    <button class="bg-white text-gray-800 px-6 py-3 rounded-full font-semibold transform hover:scale-105 transition">
+                                        View Details
+                                    </button>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-semibold mb-3 text-lg text-gray-800"><%= product.title %></h3>
+                                    <div class="text-2xl font-bold text-blue-600 mb-3"><%= product.price %> VND</div>
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-box mr-2"></i>
+                                        <span><%= product.quantity %> units available</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <% }) %>
+                    </div>
+
+                    <!-- Empty State -->
+                    <% if (products.length === 0) { %>
+                    <div class="text-center py-16 bg-white rounded-2xl shadow-sm">
+                        <i class="fas fa-box-open text-7xl text-gray-300 mb-6"></i>
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-3">No Products Found</h3>
+                        <p class="text-gray-500 max-w-md mx-auto">We couldn't find any products matching your criteria. Try adjusting your filters to find what you're looking for.</p>
+                    </div>
+                    <% } %>
+
+                    <!-- Pagination -->
+                    <% if (pagination.totalPages > 1) { %>
+                    <div class="mt-12 flex justify-center gap-3">
+                        <% for(let i = 1; i <= pagination.totalPages; i++) { %>
+                        <a href="/product?page=<%= i %>&category=<%= filters.category || '' %>&minPrice=<%= filters.minPrice || '' %>&maxPrice=<%= filters.maxPrice || '' %>&sort=<%= filters.sort || 'newest' %>" 
+                           class="pagination-link <%= pagination.page === i ? 'active' : '' %>">
+                            <%= i %>
+                        </a>
+                        <% } %>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('../../partials/footer.ejs') %>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Filter form handling
+        const filterForm = document.getElementById('filterForm');
+        
+        // Handle form submission
+        filterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get all form data
+            const formData = new FormData(filterForm);
+            const params = new URLSearchParams();
+            
+            // Add all form data to params
+            for (let [key, value] of formData.entries()) {
+                if (value) {
+                    params.append(key, value);
+                }
+            }
+            
+            // Redirect to filtered URL
+            window.location.href = `/product?${params.toString()}`;
+        });
+
+        // Search functionality
+        const searchButton = document.querySelector('.search-button');
+        const searchInput = document.getElementById('searchInput');
+
+        function handleSearch() {
+            const searchQuery = searchInput.value.trim();
+            if (searchQuery) {
+                const currentParams = new URLSearchParams(window.location.search);
+                currentParams.set('search', searchQuery);
+                window.location.href = `/product?${currentParams.toString()}`;
+            }
+        }
+
+        searchButton.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+</body>
+</html> 

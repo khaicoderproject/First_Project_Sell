@@ -7,7 +7,14 @@ module.exports.index = async (req, res) => {
     const cartId = req.cookies.cartId;
     const cart = await cartModel.findOne({ _id: cartId }).lean();
     // console.log(cart);
-    const orders = await orderModel.find({ user_id: cart._id });
+    const orders = await orderModel.find({ user_id: cart._id }).lean();
+    
+    // Add orderId to each order
+    const ordersWithId = orders.map(order => ({
+      ...order,
+      orderId: order._id.toString()
+    }));
+
     const cartProduct = cart.products;
     if (cartProduct) {
       if (cart.products.length > 0) {
@@ -30,7 +37,7 @@ module.exports.index = async (req, res) => {
     }
     res.render("client/pages/cart/index", {
       cartProduct: cartProduct,
-      orders: orders,
+      orders: ordersWithId,
     });
   } catch (error) {}
 };

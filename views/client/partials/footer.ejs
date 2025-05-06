@@ -1,61 +1,131 @@
-<footer class="bg-light py-5">
+<footer class="bg-dark text-light py-5">
   <div class="container">
     <div class="row">
-      <!-- Column 1: Resources -->
-      <div class="col-md-3">
-        <h5>Resources</h5>
+      <!-- Company Info -->
+      <div class="col-lg-4 mb-4">
+        <h5 class="text-uppercase mb-4">Digital Marketplace</h5>
+        <p class="text-muted">Your one-stop destination for premium digital products and services. We bring you the best in technology, entertainment, and lifestyle.</p>
+        <div class="social-links mt-4">
+          <a href="#" class="text-light mr-3"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-light mr-3"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-light mr-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-light"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h6 class="text-uppercase mb-4">Quick Links</h6>
         <ul class="list-unstyled">
-          <li><a href="#">Find A Store</a></li>
-          <li><a href="#">Become A Member</a></li>
-          <li><a href="#">Send Us Feedback</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">About Us</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Contact</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Blog</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Careers</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Support</a></li>
         </ul>
       </div>
 
-      <!-- Column 2: Help -->
-      <div class="col-md-3">
-        <h5>Help</h5>
+      <!-- Customer Service -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h6 class="text-uppercase mb-4">Customer Service</h6>
         <ul class="list-unstyled">
-          <li><a href="#">Get Help</a></li>
-          <li><a href="#">Order Status</a></li>
-          <li><a href="#">Delivery</a></li>
-          <li><a href="#">Returns</a></li>
-          <li><a href="#">Payment Options</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Help Center</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Order Status</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Shipping Info</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Returns</a></li>
+          <li class="mb-2"><a href="#" class="text-muted">Payment Options</a></li>
         </ul>
       </div>
 
-      <!-- Column 3: Contact Us -->
-      <div class="col-md-3">
-        <h5>Contact Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">About Nike</a></li>
-          <li><a href="#">News</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Investors</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Vietnam</a></li>
-        </ul>
+      <!-- Newsletter -->
+      <div class="col-lg-4 col-md-4 mb-4">
+        <h6 class="text-uppercase mb-4">Newsletter</h6>
+        <p class="text-muted">Subscribe to our newsletter for the latest updates and offers.</p>
+        <form class="mt-3">
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Your email" required>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">Subscribe</button>
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <!-- Column 4: Legal -->
-      <div class="col-md-3">
-        <h5>Legal</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">© 2024 Nike, Inc. All rights reserved</a></li>
-          <li><a href="#">Guides</a></li>
-          <li><a href="#">Terms of Sale</a></li>
-          <li><a href="#">Terms of Use</a></li>
-          <li><a href="#">Nike Privacy Policy</a></li>
-        </ul>
+    <!-- Bottom Footer -->
+    <div class="border-top border-secondary mt-4 pt-4">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="mb-0 text-muted">&copy; 2024 Digital Marketplace. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="#" class="text-muted">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="#" class="text-muted">Terms of Service</a></li>
+            <li class="list-inline-item"><a href="#" class="text-muted">Cookie Policy</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- Add Bootstrap 4 CDN -->
-<link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-/>
+<style>
+  footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
+  footer h5, footer h6 {
+    color: #fff;
+    font-weight: 600;
+  }
+  footer .text-muted {
+    color: #a0a0a0 !important;
+  }
+  footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  footer a:hover {
+    color: #fff !important;
+  }
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  .social-links a:hover {
+    background: #007bff;
+    transform: translateY(-3px);
+  }
+  .input-group .form-control {
+    border: none;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  .input-group .form-control::placeholder {
+    color: #a0a0a0;
+  }
+  .input-group .btn {
+    padding: 0.75rem 1.5rem;
+  }
+  .list-inline-item:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+  @media (max-width: 767.98px) {
+    .text-md-right {
+      text-align: center !important;
+      margin-top: 1rem;
+    }
+  }
+</style>
+
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

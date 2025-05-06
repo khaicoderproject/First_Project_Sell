@@ -4,4 +4,5 @@ const controller = require("../../controllers/client/order.controller");
 router.get("/checkout", controller.checkout);
 router.post("/process-success", controller.processSuccess);
 router.get("/order-success", controller.orderSuccess);
+router.get("/order-detail/:id", controller.orderDetail);
 module.exports = router;

@@ -3,16 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/client/css/style.css" />
-    <link rel="stylesheet" href="/client/css/product.css" />
-    <!-- <link rel="stylesheet" href="/client/css/profile.css" /> -->
     <link rel="stylesheet" href="/client/css/post-all.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
     />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
@@ -21,270 +17,707 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
+    <style>
+      .main-container {
+        display: grid;
+        grid-template-columns: 300px 1fr 300px;
+        gap: 20px;
+        max-width: 1400px;
+        margin: 20px auto;
+        padding: 0 15px;
+      }
+
+      .container-post {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .create-post-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        border: 1px solid #dddfe2;
+      }
+
+      .create-post-header {
+        padding: 12px 16px;
+        border-bottom: 1px solid #e4e6eb;
+      }
+
+      .create-post-body {
+        padding: 16px;
+      }
+
+      .post-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        background: #f0f2f5;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .post-input-wrapper:hover {
+        background: #e4e6eb;
+      }
+
+      .post-actions {
+        display: flex;
+        gap: 8px;
+        padding: 8px 0;
+        border-top: 1px solid #e4e6eb;
+        margin-top: 12px;
+      }
+
+      .post-action-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 6px;
+        color: #65676b;
+        font-weight: 600;
+        transition: all 0.2s;
+        border: none;
+        background: transparent;
+      }
+
+      .post-action-btn:hover {
+        background: #f0f2f5;
+        text-decoration: none;
+        color: #65676b;
+      }
+
+      .post-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        border: 1px solid #dddfe2;
+      }
+
+      .post-header {
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .post-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .post-author img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #1877f2;
+      }
+
+      .post-author-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .post-author-name {
+        color: #050505;
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+      }
+
+      .post-author-name:hover {
+        text-decoration: underline;
+      }
+
+      .post-time {
+        color: #65676b;
+        font-size: 13px;
+      }
+
+      .post-content {
+        padding: 0 16px 12px;
+      }
+
+      .post-text {
+        color: #050505;
+        font-size: 15px;
+        line-height: 1.3333;
+        margin-bottom: 12px;
+        white-space: pre-wrap;
+      }
+
+      .post-image {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 12px;
+      }
+
+      .post-actions-bar {
+        display: flex;
+        padding: 4px 16px;
+        border-top: 1px solid #e4e6eb;
+      }
+
+      .post-action {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px;
+        color: #65676b;
+        font-weight: 600;
+        font-size: 15px;
+        border-radius: 4px;
+        transition: all 0.2s;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .post-action:hover {
+        background: #f0f2f5;
+        text-decoration: none;
+        color: #65676b;
+      }
+
+      .post-action i {
+        font-size: 18px;
+      }
+
+      .post-action.liked {
+        color: #1877f2;
+      }
+
+      .post-action.liked i {
+        color: #1877f2;
+      }
+
+      .post-stats {
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #65676b;
+        font-size: 15px;
+        border-bottom: 1px solid #e4e6eb;
+      }
+
+      .post-stats-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .post-stats-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .like-count {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .like-count i {
+        color: #1877f2;
+        font-size: 16px;
+      }
+
+      .dropdown-menu {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: none;
+        padding: 8px 0;
+      }
+
+      .dropdown-item {
+        padding: 8px 16px;
+        font-size: 14px;
+        color: #050505;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .dropdown-item:hover {
+        background: #f0f2f5;
+      }
+
+      .dropdown-item i {
+        width: 20px;
+        color: #65676b;
+      }
+
+      .modal-content {
+        border-radius: 8px;
+        border: none;
+      }
+
+      .modal-header {
+        border-bottom: 1px solid #e4e6eb;
+        padding: 16px;
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+
+      .modal-footer {
+        border-top: 1px solid #e4e6eb;
+        padding: 16px;
+      }
+
+      .btn-primary {
+        background: #1877f2;
+        border: none;
+        padding: 8px 16px;
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background: #166fe5;
+      }
+
+      .btn-secondary {
+        background: #e4e6eb;
+        border: none;
+        color: #050505;
+        padding: 8px 16px;
+        font-weight: 600;
+      }
+
+      .btn-secondary:hover {
+        background: #d8dadf;
+      }
+
+      .left-sidebar {
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+      }
+
+      .right-sidebar {
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+      }
+
+      .sidebar-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dddfe2;
+        margin-bottom: 20px;
+      }
+
+      .sidebar-header {
+        padding: 12px 16px;
+        border-bottom: 1px solid #e4e6eb;
+        font-weight: 600;
+        color: #050505;
+      }
+
+      .sidebar-content {
+        padding: 8px 0;
+      }
+
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        color: #050505;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+
+      .sidebar-item:hover {
+        background: #f0f2f5;
+        text-decoration: none;
+        color: #050505;
+      }
+
+      .sidebar-item img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .sidebar-item i {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e4e6eb;
+        border-radius: 50%;
+        color: #1877f2;
+        font-size: 18px;
+      }
+
+      .sidebar-item-text {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .sidebar-item-count {
+        margin-left: auto;
+        background: #e4e6eb;
+        color: #65676b;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 13px;
+      }
+
+      .shortcut-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        color: #050505;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+
+      .shortcut-item:hover {
+        background: #f0f2f5;
+        text-decoration: none;
+        color: #050505;
+      }
+
+      .shortcut-item img {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+
+      .shortcut-item-text {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        color: #050505;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+
+      .contact-item:hover {
+        background: #f0f2f5;
+        text-decoration: none;
+        color: #050505;
+      }
+
+      .contact-item img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .contact-item-text {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .contact-item-status {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #31a24c;
+        margin-left: auto;
+      }
+
+      .contact-item-status.offline {
+        background: #65676b;
+      }
+
+      @media (max-width: 1200px) {
+        .main-container {
+          grid-template-columns: 1fr;
+        }
+        .left-sidebar, .right-sidebar {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1201px) and (max-width: 1400px) {
+        .main-container {
+          grid-template-columns: 280px 1fr 280px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- Include header.ejs -->
     <%- include('../../partials/header.ejs') %>
     <main>
-      <div class="container">
-        <!-- <div class="row"> -->
-        <!-- <div class="col-lg-6 gedf-main"> -->
-          <!--- \\\\\\\Post-->
-          <form action="/post/create" method="POST">
-            <div class="card social-timeline-card">
-              <div class="card-header">
-                <ul
-                  class="nav nav-tabs card-header-tabs"
-                  id="myTab"
-                  role="tablist"
-                >
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      id="posts-tab"
-                      data-toggle="tab"
-                      href="#posts"
-                      role="tab"
-                      aria-controls="posts"
-                      aria-selected="true"
-                      >Share your insights</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      id="images-tab"
-                      data-toggle="tab"
-                      role="tab"
-                      aria-controls="images"
-                      aria-selected="false"
-                      href="#images"
-                      >Share Images</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <div class="tab-content" id="myTabContent">
-                  <div
-                    class="tab-pane fade active show"
-                    id="posts"
-                    role="tabpanel"
-                    aria-labelledby="posts-tab"
-                  >
-                    <div class="form-group">
-                      <label class="sr-only" for="message">post</label>
-                      <textarea
-                        class="form-control"
-                        id="message"
-                        rows="3"
-                        placeholder="What are you thinking?"
-                        name="message"
-                      ></textarea>
+      <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="left-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-header">Menu</div>
+            <div class="sidebar-content">
+              <a href="/user/profile/<%=user.userIdentifier%>" class="sidebar-item">
+                <img src="<%=user.thumbnail%>" alt="<%=user.fullName%>">
+                <span class="sidebar-item-text"><%=user.fullName%></span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-user-friends"></i>
+                <span class="sidebar-item-text">Friends</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-users"></i>
+                <span class="sidebar-item-text">Groups</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-store"></i>
+                <span class="sidebar-item-text">Marketplace</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-tv"></i>
+                <span class="sidebar-item-text">Watch</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-history"></i>
+                <span class="sidebar-item-text">Memories</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-bookmark"></i>
+                <span class="sidebar-item-text">Saved</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-flag"></i>
+                <span class="sidebar-item-text">Pages</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
+              <a href="#" class="sidebar-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="sidebar-item-text">Events</span>
+                <span class="sidebar-item-count">+99</span>
+              </a>
                     </div>
                   </div>
-                  <div
-                    class="tab-pane fade"
-                    id="images"
-                    role="tabpanel"
-                    aria-labelledby="images-tab"
-                  >
-                    <div class="form-group">
-                      <div class="custom-file">
-                        <input
-                          type="file"
-                          class="custom-file-input"
-                          id="customFile"
-                        />
-                        <label class="custom-file-label" for="customFile"
-                          >Upload image</label
-                        >
+
+          <div class="sidebar-card">
+            <div class="sidebar-header">Your Shortcuts</div>
+            <div class="sidebar-content">
+              
+            </div>
                       </div>
                     </div>
-                    <div class="py-4"></div>
+
+        <!-- Main Content -->
+        <div class="container-post">
+          <!-- Create Post Card -->
+          <div class="create-post-card">
+            <div class="create-post-header">
+              <div class="post-input-wrapper" data-toggle="modal" data-target="#createPostModal">
+                <img src="<%=user.thumbnail%>" alt="" class="rounded-circle" width="40" height="40">
+                <span class="text-muted">What's on your mind, <%=user.fullName%>?</span>
                   </div>
                 </div>
-                <div class="btn-toolbar justify-content-between">
-                  <div class="btn-group">
-                    <button type="submit" class="btn btn-primary">
-                      Đăng Bài
+            <div class="create-post-body">
+              <div class="post-actions">
+                <button class="post-action-btn" data-toggle="modal" data-target="#createPostModal">
+                  <i class="fas fa-video text-danger"></i>
+                  <span>Live Video</span>
+                </button>
+                <button class="post-action-btn" data-toggle="modal" data-target="#createPostModal">
+                  <i class="fas fa-images text-success"></i>
+                  <span>Photo/Video</span>
                     </button>
-                  </div>
-                  <div class="btn-group">
-                    <button
-                      id="btnGroupDrop1"
-                      type="button"
-                      class="btn btn-link dropdown-toggle"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="fa fa-globe"></i>
+                <button class="post-action-btn" data-toggle="modal" data-target="#createPostModal">
+                  <i class="fas fa-smile text-warning"></i>
+                  <span>Feeling/Activity</span>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="#" data-value="public"
-                        ><i class="fa fa-globe"></i> Public</a
-                      >
-                      <a class="dropdown-item" href="#" data-value="friends"
-                        ><i class="fa fa-users"></i> Friends</a
-                      >
-                      <a class="dropdown-item" href="#" data-value="just_me"
-                        ><i class="fa fa-user"></i> Just me</a
-                      >
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
-          </form>
-          <!-- Post /////-->
-          <!--- \\\\\\\Post-->
+          </div>
+
+          <!-- Posts Feed -->
           <%posts.forEach(item=>{ %>
-          <div class="card social-timeline-card">
-            <div class="card-header">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex justify-content-between align-items-center">
-                  <!-- <div class="mr-2">
-                    <img
-                      class="rounded-circle"
-                      width="45"
-                      src="<%=user.thumbnail%>"
-                      alt=""
-                    />
-                  </div> -->
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-author">
                   <%userIdentifier.forEach(author=>{%>
                     <%if(item.author===author.userIdentifier.toString()){%>
-                      <div class="mr-2">
-                        <img
-                          class="rounded-circle"
-                          width="45"
-                          height="45"
-                          src="<%=author.thumbnail%>"
-                          alt=""
-                        />
-                      </div>
-                      <div class="ml-2">
-                        <div class="h5 m-0 text-blue">
-                          <a href="/user/profile/<%=author.userIdentifier%>"
-                            >@<%=author.fullName%></a
-                          >
-                        </div>
-                        <div class="h7 text-muted"><%=author.fullName%></div>
+                    <img src="<%=author.thumbnail%>" alt="<%=author.fullName%>">
+                    <div class="post-author-info">
+                      <a href="/user/profile/<%=author.userIdentifier%>" class="post-author-name">
+                        <%=author.fullName%>
+                      </a>
+                      <span class="post-time">
+                        <% let createdAt = new Date(item.publishedDate); 
+                           let now = new Date(); 
+                           let diffInMs = now - createdAt; 
+                           let diffInMinutes = Math.floor(diffInMs / (1000 * 60)); 
+                           let diffInHours = Math.floor(diffInMs / (1000 * 60 * 60)); 
+                           let diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24)); %>
+
+                        <% if (diffInDays > 0) { %>
+                          <%= diffInDays %> <%= diffInDays === 1 ? 'day' : 'days' %> ago
+                        <% } else if (diffInHours > 0) { %>
+                          <%= diffInHours %> <%= diffInHours === 1 ? 'hour' : 'hours' %> ago
+                        <% } else if (diffInMinutes > 0) { %>
+                          <%= diffInMinutes %> <%= diffInMinutes === 1 ? 'minute' : 'minutes' %> ago
+                        <% } else { %>
+                          Just now
+                        <% } %>
+                      </span>
                       </div>
                     <%}%>
                   <%})%>
                 </div>
-                <div>
                   <div class="dropdown">
-                    <button
-                      class="btn btn-link dropdown-toggle"
-                      type="button"
-                      id="gedf-drop11"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="fa fa-ellipsis-h"></i>
+                <button class="btn btn-link text-muted" type="button" data-toggle="dropdown">
+                  <i class="fas fa-ellipsis-h"></i>
                     </button>
-                    <div
-                      class="dropdown-menu dropdown-menu-right"
-                      aria-labelledby="gedf-drop11"
-                    >
-                      <div class="h6 dropdown-header">Configuration</div>
-                      <a class="dropdown-item" href="#">Save</a>
-                      <a class="dropdown-item" href="#">Hide</a>
-                      <a class="dropdown-item" href="#">Report</a>
-                    </div>
-                  </div>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#"><i class="fas fa-bookmark"></i> Save post</a>
+                  <a class="dropdown-item" href="#"><i class="fas fa-bell-slash"></i> Turn on notifications</a>
+                  <a class="dropdown-item" href="#"><i class="fas fa-user-friends"></i> Who can see this</a>
+                  <a class="dropdown-item" href="#"><i class="fas fa-edit"></i> Edit post</a>
+                  <a class="dropdown-item" href="#"><i class="fas fa-trash-alt"></i> Delete post</a>
                 </div>
               </div>
             </div>
-            <div class="card-body">
-              <div class="text-muted h7 mb-2">
-                <% let createdAt = new Date(item.publishedDate); let now = new
-                Date(); let diffInMs = now - createdAt; let diffInMinutes =
-                Math.floor(diffInMs / (1000 * 60)); let diffInHours =
-                Math.floor(diffInMs / (1000 * 60 * 60)); %>
-
-                <i class="fa fa-clock-o"></i>
-                <% if (diffInHours > 24) { %>
-                <!-- Nếu thời gian đã qua hơn 24 giờ, hiển thị ngày giờ chính xác -->
-                <%= new Date(item.publishedDate).toLocaleString() %> <% } else {
-                %>
-                <!-- Nếu thời gian đã qua ít hơn 24 giờ -->
-                <% if (diffInMinutes >= 60) { %>
-                <!-- Nếu sự khác biệt lớn hơn 60 phút, hiển thị số giờ và reset phút -->
-                <%= diffInHours %> hours ago <% } else { %>
-                <!-- Nếu sự khác biệt nhỏ hơn 60 phút, chỉ hiển thị số phút -->
-                <%= diffInMinutes %> minutes ago <% } %> <% } %>
-              </div>
-              <h5 class="card-title"><%=item.message%></h5>
-              <img src="img/gallery/1a.jpg" alt="" class="img-fluid" />
+            <div class="post-content">
+              <p class="post-text"><%=item.message%></p>
+              <% if (item.image) { %>
+                <img src="<%=item.image%>" alt="" class="post-image">
+              <% } %>
             </div>
-            <div class="card-footer">
-              <button
+            <div class="post-stats">
+              <div class="post-stats-left">
+                <div class="like-count">
+                  <i class="fas fa-thumbs-up"></i>
+                  <span><%= item.likes.quantityNumber > 0 ? item.likes.quantityNumber : '' %></span>
+                </div>
+              </div>
+              <div class="post-stats-right">
+                <span><%= item.comments ? item.comments.length : 0 %> comments</span>
+                <span><%= item.shares ? item.shares.length : 0 %> shares</span>
+              </div>
+            </div>
+            <div class="post-actions-bar">
+              <button class="post-action <%= item.likes && item.likes.users && item.likes.users.includes(user.id) ? 'liked' : '' %>" 
                 data-post-id="<%= item.id %>"
-                class="card-link"
-                id="react-post"
-                style="
-                  background: none;
-                  border: none;
-                  padding: 0;
-                  font: inherit;
-                  color: inherit;
-                  outline: none;
-                "
-              >
-                <i class="fa-solid fa-thumbs-up text-primary"></i>
-                <span class="text-primary">
-                  <%= item.likes.quantityNumber >= 1 ? item.likes.quantityNumber
-                  : '' %> Like
-                </span>
+                      id="react-post">
+                <i class="fas fa-thumbs-up"></i>
+                <span>Like</span>
               </button>
-
-              <a href="#" class="card-link"
-                ><i class="fa fa-comment"></i> Comment</a
-              >
-              <a href="#" class="card-link"
-                ><i class="fa fa-mail-forward"></i> Share</a
-              >
+              <a href="#" class="post-action">
+                <i class="fas fa-comment"></i>
+                <span>Comment</span>
+              </a>
+              <a href="#" class="post-action">
+                <i class="fas fa-share"></i>
+                <span>Share</span>
+              </a>
             </div>
           </div>
           <%})%>
-          <!-- Post /////-->
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-header">Contacts</div>
+            <div class="sidebar-content">
+              <%userIdentifier.forEach(contact=>{%>
+                <%if(contact.userIdentifier !== user.userIdentifier){%>
+                  <a href="/user/profile/<%=contact.userIdentifier%>" class="contact-item">
+                    <img src="<%=contact.thumbnail%>" alt="<%=contact.fullName%>">
+                    <span class="contact-item-text"><%=contact.fullName%></span>
+                    <span class="contact-item-status <%=Math.random() > 0.5 ? '' : 'offline'%>"></span>
+                  </a>
+                <%}%>
+              <%})%>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-header">Group Conversations</div>
+            <div class="sidebar-content">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Post Modal -->
+      <div class="modal fade" id="createPostModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create Post</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+            </div>
+            <form action="/post/create" method="POST" enctype="multipart/form-data">
+              <div class="modal-body">
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="3" placeholder="What's on your mind, <%=user.fullName%>?"></textarea>
+                </div>
+                <div class="form-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="postImage" name="image">
+                    <label class="custom-file-label" for="postImage">Add Photo/Video</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <select class="form-control" name="privacy">
+                    <option value="public"><i class="fas fa-globe"></i> Public</option>
+                    <option value="friends"><i class="fas fa-user-friends"></i> Friends</option>
+                    <option value="private"><i class="fas fa-lock"></i> Only me</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Post</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </main>
-    <form
-      action=""
-      method="post"
-      dataPath="/user/profile"
-      userId="<%=user.id%>"
-      id="change-post-react"
-    ></form>
-    <!-- Include footer.ejs -->
+
+    <form action="" method="post" dataPath="/user/profile" userId="<%=user.id%>" id="change-post-react"></form>
     <%- include('../../partials/footer.ejs') %>
 
-    <!-- Scripts -->
     <script src="/client/js/post.js"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
